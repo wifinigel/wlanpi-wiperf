@@ -91,7 +91,7 @@ install () {
 
   ### install the wiperf poller from local file system - exit if errors
   echo "(ok) Installing wiperf poller python module (please wait)..."  | tee -a $LOG_FILE
-  python3 wiperf2/setup.py install >> $LOG_FILE 2>&1
+  python3 $CLONE_DIR/wiperf2/setup.py install >> $LOG_FILE 2>&1
    if [ "$?" != '0' ]; then
       echo "(fail) pip installation of wiperf_poller failed. Exiting." | tee -a $LOG_FILE 
       exit 1
