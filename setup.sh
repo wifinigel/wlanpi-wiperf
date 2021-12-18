@@ -7,9 +7,9 @@ LOG_FILE="/var/log/wiperf_install.log"
 
 # define global vars
 CLONE_DIR="/usr/share"
-INSTALL_DIR="$CLONE_DIR/wiperf"
-CFG_DIR="/etc/wiperf"
-BACKUP_DIR="/etc/.wiperf"
+INSTALL_DIR="$CLONE_DIR/wiperf2"
+CFG_DIR="/etc/wiperf2"
+BACKUP_DIR="/etc/.wiperf2"
 GITHUB_REPO="https://github.com/wifinigel/wiperf2.git"
 GITHUB_BRANCH='main'
 OPERATION=$1
@@ -105,7 +105,7 @@ install () {
   mkdir -p $CFG_DIR  >> $LOG_FILE 2>&1
   mv "$INSTALL_DIR/config.default.ini" $CFG_DIR  >> $LOG_FILE 2>&1
   if [ "$?" != '0' ]; then
-    echo "(fail) Copy of config.ini.default failed." | tee -a $LOG_FILE
+    echo "(fail) Move of config.ini.default failed." | tee -a $LOG_FILE
     exit 1
   else
     echo "(ok) Copied OK." | tee -a $LOG_FILE
@@ -255,7 +255,7 @@ uninstall () {
 
   # remove python modules
   echo "(ok) Removing Python module" | tee -a $LOG_FILE
-  echo "(ok) ...wiperf_poller" | tee -a $LOG_FILE
+  echo "(ok) ...wiperf" | tee -a $LOG_FILE
   pip3 uninstall -y wiperf2  >> $LOG_FILE 2>&1
 
   # remove directories
