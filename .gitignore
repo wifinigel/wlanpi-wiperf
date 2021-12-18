@@ -7,6 +7,9 @@ build
 .vscode
 *.egg-info
 wiperf_poller-*
+dashboards/*.zip
+dashboards/grafana/_samples
+mkdocs/site
 
 
 

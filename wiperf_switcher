@@ -1,0 +1,308 @@
+#! /bin/bash
+#
+# wiperf_switcher       script to switch wiperf on/off
+#
+# Written by Nigel Bowden <wifinigel@gmail.com>.
+#
+
+set -e
+
+NAME=wiperf_switcher
+DESC="Script to switch wiperf mode on/off"
+STATUS_FILE="/etc/wlanpi-state"
+
+HOME_DIR="/usr/share/wiperf"
+USERNAME="root"
+CFG_DIR="/etc/wiperf"
+CFG_FILE="$CFG_DIR/config.ini"
+LOG_FILE="/var/log/wiperf_switcher.log"
+ROUTE_FILE="/etc/network/if-up.d/route"
+
+# Check we're root
+if [[ $EUID -ne 0 ]]; then
+   err_msg="This script must be run as root" 
+   echo $err_msg | tee $LOG_FILE
+   exit 1
+fi
+
+###############################################################################
+#
+# Activate wiperf:
+#
+# 1.  Check that a mode is defined in config.ini
+# 2.  Check interface wlan0 is available (wireless NIC plugged in)
+#       a. wlan0 - wireless NIC available
+#       b. eth0 - ethernet port available
+# 3.  Read in test interval & offset from config file
+# 4.  Add crontab entry to perform 5 min polling
+# 5.  Add fw rules to harden eth0 & wlan0
+# 6.  Backup various existing files to allow restoration when wiperf
+#     deactivated
+# 7. Move a number of existing files that need to be replaced
+# 8. Create status file to indicate wiperf is active
+# 9. Reboot the wlanpi to ensure clean activation
+#
+# Note: /etc/sysctl.conf included to ensure forwarding
+#    cannot be accidentally be enabled in probe mode if
+#    has been changed by some other process
+#
+###############################################################################
+wiperf_on () {
+
+  echo "Starting switch from classic mode to wiperf mode" | tee $LOG_FILE
+
+  # check what state the WLAN Pi is in classic mode
+  PI_STATUS=`cat $STATUS_FILE | grep 'classic'` || true
+  if  [ -z "$PI_STATUS" ]; then
+     echo "Failed - WLAN Pi is not in classic mode. (exiting)"  | tee -a $LOG_FILE
+     exit 1
+  fi
+
+  ############################################
+  # 1. Get the probe mode (ethernet/wireless)
+  ############################################
+  MODE=`cat ${CFG_FILE} | grep 'probe_mode:' | awk -F'[: ]*' '{print $2}'` || true
+  if  [ -z "$MODE" ]; then
+    echo "No mode found in config file (exiting)" | tee -a $LOG_FILE 
+    exit 1
+  else
+    echo "Selected mode in cfg file: ${MODE}" | tee -a $LOG_FILE 
+  fi
+
+  #######################################################################
+  # 2. Check if wlan or eth interface is available (depending on config)
+  #######################################################################
+  echo "Checking expected interfaces are available..."  | tee -a $LOG_FILE
+  if [ "$MODE" = "ethernet" ]; then
+    # Check if eth0 available before we start changing things 
+    TESTING_IF=`ip a | grep eth0` || true
+    if  [ -z "$TESTING_IF" ]; then
+      echo "No Eth Interface available! (exiting)" | tee -a $LOG_FILE 
+      exit 1
+    fi
+    echo "Ethernet details: ${TESTING_IF}" | tee -a $LOG_FILE
+  else
+    # Check if wlan0 available before we start changing things 
+    TESTING_IF=`ip a | grep wlan0` || true
+    if  [ -z "$TESTING_IF" ]; then
+      echo "No WLAN Interface available! (exiting)" | tee -a $LOG_FILE 
+      exit 1
+    fi
+    echo "WLAN details ${TESTING_IF}" | tee -a $LOG_FILE
+  fi
+
+  #######################################
+  # 3. Get test interval & offset value
+  #######################################
+  TEST_INTERVAL=`cat ${CFG_FILE} | grep 'test_interval:' | awk -F'[: ]*' '{print $2}'` || true
+  if  [ -z "TEST_INTERVAL" ]; then
+    echo "No test interval in config file (exiting)" | tee -a $LOG_FILE 
+    exit 1
+  fi
+  echo "Test interval from config file: ${TEST_INTERVAL}" | tee -a $LOG_FILE
+
+  # Get test offset value
+  TEST_OFFSET=`cat ${CFG_FILE} | grep 'test_offset:' | awk -F'[: ]*' '{print $2}'` || true
+  if  [ -z "TEST_OFFSET" ]; then
+    echo "No test offset in config file (exiting)" | tee -a $LOG_FILE 
+    exit 1
+  fi
+  echo "Test offset from config file: ${TEST_OFFSET}" | tee -a $LOG_FILE
+
+  ########################
+  # 4. Add crontab entry
+  ########################
+  # add crontab if does not exist already
+  if ! [ -e  /var/spool/cron/crontabs/$USERNAME ]; then
+    echo "# " | crontab -u $USERNAME -
+  fi
+
+  line="${TEST_OFFSET}-59/${TEST_INTERVAL} * * * * /usr/bin/python3 ${HOME_DIR}/wiperf_run.py > /var/log/wiperf_cron.log 2>&1"
+  (crontab -u $USERNAME -l; echo "$line" ) | crontab -u $USERNAME -
+  LAST_RESULT=$?
+  if [ $LAST_RESULT -ne 0 ]; then
+    echo "Cron add failed" | tee -a $LOG_FILE 
+    exit 0
+  fi
+  echo "Cron command added: ${line}" | tee -a $LOG_FILE
+
+  #################################################################################
+  # 5. Harden eth0 & wlan0 by adding fw rules - allow only ssh in on eth0 & wlan0
+  #################################################################################
+  ufw insert 1 allow in on eth0 to any port ssh
+  ufw insert 2 allow in on eth0 to any port http
+  ufw insert 3 deny in on eth0
+  ufw insert 4 allow in on wlan0 to any port ssh
+  ufw insert 5 allow in on wlan0 to any port http
+  ufw insert 6 deny in on wlan0
+
+  ##################################
+  # 6. Backup existing config files
+  ##################################
+  declare -a arr=(
+      "/etc/network/interfaces" 
+      "/etc/sysctl.conf"
+      "/etc/wpa_supplicant/wpa_supplicant.conf"
+  )
+  echo "Backing up config files..." | tee -a $LOG_FILE
+
+  for item in "${arr[@]}"
+  do
+    if [ -f "$item" ]; then
+      mv $item ${item}.probe
+    fi
+  done
+
+  ##################################
+  # 7. Link to wiperf config files
+  ##################################
+  echo "Linking temp config files..." | tee -a $LOG_FILE
+  ln -s ${CFG_DIR}/conf/etc/network/interfaces /etc/network/interfaces  
+  ln -s ${CFG_DIR}/conf/etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
+  ln -s ${CFG_DIR}/conf/etc/sysctl.conf /etc/sysctl.conf
+
+  ############################################################
+  # 8. Create status file to display status messages on FPMS
+  ############################################################
+  echo "Updating status file." | tee -a $LOG_FILE
+
+  # Signal that wconsole active
+  echo "wiperf" > $STATUS_FILE
+
+  #############
+  # 9. Reboot 
+  #############
+  echo "WLAN Pi will now reboot" | tee -a $LOG_FILE
+  sleep 1
+  sync
+  reboot
+}
+
+###############################################################################
+#
+# Deactivate wiperf:
+#
+# 1. Get the probe mode
+# 2. Remove crontab entry to stop polling
+# 3. Remove fw rules added during mode switch
+# 4. Remove links created during activation
+# 5. Restore config files backed up during activation
+# 6. Remove status file to indicate wiperf no longer active
+# 7. Reboot wlanpi to provide clean restoration of services
+#
+###############################################################################
+wiperf_off () {
+
+  # check what state the WLAN Pi is in
+  PI_STATUS=`cat $STATUS_FILE | grep 'wiperf'` || true
+  if  [ -z "$PI_STATUS" ]; then
+     echo "Failed - WLAN Pi is not in wiperf mode. (exiting)" | tee -a $LOG_FILE
+     exit 1
+  fi
+
+   echo "Starting switch from wiperf mode to classic mode" | tee -a $LOG_FILE
+
+  ############################################
+  # 1. Get the probe mode (ethernet/wireless)
+  ############################################
+  MODE=`cat ${CFG_FILE} | grep 'probe_mode:' | awk -F'[: ]*' '{print $2}'` || true
+  if  [ -z "$MODE" ]; then
+    echo "No mode found in config file (exiting)" | tee -a $LOG_FILE 
+    exit 1
+  fi
+
+  echo "Selected mode in cfg file: ${MODE}" | tee -a $LOG_FILE
+  
+  ###########################################
+  # 2. Remove crontab entry to stop polling
+  ###########################################
+  echo "Removing cron job." | tee -a $LOG_FILE
+  crontab -u $USERNAME -l | grep -v 'wiperf_run.py'  | crontab -u $USERNAME -
+  LAST_RESULT=$?
+  if [ $LAST_RESULT -ne 0 ]; then
+    echo "Cron remove failed (exiting)" | tee -a $LOG_FILE 
+    exit 1
+  fi
+  
+  echo "Cron entry removed" | tee -a $LOG_FILE
+  
+  ##################################
+  # 3. Remove eth0 & wlan0 fw rules
+  ##################################
+  ufw delete allow in on eth0 to any port ssh
+  ufw delete allow in on eth0 to any port http
+  ufw delete deny in on eth0
+  ufw delete allow in on wlan0 to any port ssh
+  ufw delete allow in on wlan0 to any port http
+  ufw delete deny in on wlan0
+
+  ##################################
+  # 4. Remove links to config files
+  ##################################
+  echo "Removing links to temp config files" | tee -a $LOG_FILE
+  unlink /etc/network/interfaces
+  unlink /etc/sysctl.conf
+  unlink /etc/wpa_supplicant/wpa_supplicant.conf
+ 
+  ###################################
+  # 5. Restore original config files
+  ###################################
+  declare -a arr=(
+      "/etc/network/interfaces" 
+      "/etc/sysctl.conf"
+      "/etc/wpa_supplicant/wpa_supplicant.conf"
+  )
+
+  echo "Restoring original config files" | tee -a $LOG_FILE
+
+  for item in "${arr[@]}"
+  do
+    if [ -f "${item}.probe" ]; then
+      mv ${item}.probe $item
+    fi
+  done
+
+  ###################################
+  # 6. Update FPMS status file
+  ###################################
+  echo "WLANPi will now reboot"
+  echo "classic" > $STATUS_FILE
+
+  ###################################
+  # 7. Reboot
+  ###################################
+  echo "Rebooting" | tee -a $LOG_FILE
+  sleep 1
+  sync
+  reboot
+}
+
+status () {
+  PI_STATUS=`cat $STATUS_FILE | grep 'wiperf'` || true
+  if  [ -z "$PI_STATUS" ]; then
+    echo "wiperf is currently disabled"
+    exit 0
+  else
+    echo "wiperf is currently enabled"
+    exit 0
+  fi
+}
+
+case "$1" in
+  on)
+        wiperf_on
+        ;;
+  off)
+        wiperf_off
+        ;;
+  status)
+        status
+        ;;
+  *)
+        N=/usr/share/wiperf/$NAME
+        echo "Usage: $N {on|off|status|version}" >&2
+        exit 0
+        ;;
+esac
+
+exit 0

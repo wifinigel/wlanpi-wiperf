@@ -1,0 +1,73 @@
+site_name: Wiperf V2 Documentation
+nav:
+    - Home: index.md
+    - What's New in V2.2: whats_new_v2.2.md
+    - Quickstart: quickstart.md
+    - Operation Overview: operation.md
+    - Probe:
+        - probe_platform.md
+        - probe_prepare.md
+        - probe_install.md
+        - probe_configure.md
+        - probe_deploy.md
+        - probe_upgrade.md
+    - Data Server:
+        - Splunk:
+            - splunk_platform.md
+            - splunk_software.md
+            - splunk_install.md
+            - splunk_configure.md
+        - Influx/Grafana:
+            - influx_platform.md
+            - influx_install.md
+            - influx_configure.md
+            - grafana_platform.md
+            - grafana_install.md
+            - grafana_configure.md
+    - Blog Posts:
+            - blog_neo3.md
+            - whats_new_v2.1.md
+    - Troubleshooting: troubleshooting.md
+    - Advanced Configuration:
+        - adv_proxy.md
+        - adv_remote_cfg.md
+        - adv_rpi_standalone.md
+        - adv_secure.md
+        - adv_fixed_bssid.md
+    - FAQ: faq.md
+    - Reference Docs:
+        - config.ini.md
+        - data_points.md
+        - reference_doc_smb.md
+        - reference_doc_librespeed.md
+        - reference_doc_caching.md
+        - Dashboards:
+            - db_probe_summary.md
+            - db_speedtest.md
+            - db_udp_iperf3.md
+            - db_tcp_iperf3.md
+            - db_http.md
+            - db_smb.md 
+            - db_wireless.md
+            - db_health.md
+    - Contact: https://github.com/wifinigel/wiperf/discussions
+    - About: about.md
+theme:
+    name: 'material'
+    custom_dir: overrides
+    icon:
+        logo: material/wifi
+    language: en
+    palette:
+        primary: green
+        accent: green
+extra_css:
+  - extra.css
+markdown_extensions:
+  - markdown.extensions.admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+plugins:
+    - search
+    - git-revision-date-localized

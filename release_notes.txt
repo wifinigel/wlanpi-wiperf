@@ -1,24 +1,22 @@
-v0.3.6
+v2.5.0
+
+1. Consolidation of wiperf & wiperf-poller packages
+2. Convert project in to python venv-based debian package
+ 
+v2.2.4
 1. Allow use of hostname for mgt platform in config.ini
 2. Fix static route addition for mgt platform to include interface GW address
 
-v0.3.5
+v2.2.3
 1. Merged PR with influx2 https & utctime fixes. Thanks jyoung15!
 
-v0.3.4
+v2.2.2
 1. Fix influx2 data port naming issue
 
-v0.3.3
-1. Fix indent error
+v2.2.1
+1. Added fix for influxdb ssl support
 
-v0.3.2
-1. Added fix for Influx DB ssl support
-
-v0.3.1
-1. Added bug-fix for remote config pull status reporting
-2. Added remote config pull additonal debugging info
-
-v0.3
+v2.2
 1. Added support for user-defined number of ping tests
 
     New config.ini parameter to define number of targets, eg.: ping_targets_total: 10
@@ -53,137 +51,38 @@ v0.3
 
    New config.ini parameter: `smb_targets_count`
 
-v0.2
-1.  Added fix for bad read of remote config file when downloaded (thanks Ben Roeder)
-2.  Fixed bad config var names for InfluxDB2 in config.py (thanks Konstantin - issue #1)
-3.  Added SMB tests provided by Mario Gingras
-4.  Improved route injection for tests when required interface not selected by default routing
-5.  Fixed isue with incorrect data types in Influx DB for ping tests (some numeric values were created
-    as strings, preventing calcs on their values.)
+v2.1
 
-    This fixed isue will cause failures for ping test results on existing data. To correct the issue,
-    existing ping test data in the Influx DB must be dropped using the following command in the InfluxDB
-    CLI utility:
+1. Added new dashboard for SMB tests
+2. Updated summary dashboard to support new SMB tests
+3. Updated speedtest dashboard to support librespeed and additional data points
+4. Added dashboard for probe health, which include probe poll error messages
+5. Miscellaneous minor dashboard improvements/fixes
 
-    sudo influx -username admin -password letmein
-    use wiperf
-    drop series from "wiperf-ping"
-
-6.  Added support for librespeed to speedtest in addition to eisting Ookla support. Also
-    made more data points available to reports including latency, jitter & data volume for
-    upload/download
-7.  Added support for cached data : data may now be cached locally for retrieval and inspection
-    by user-defined means (e.g. SSH to probe & inspect data). Data may be stored in VSC or JSON
-    format.
-8.  Added result spooling support. If connectivity between the probe and reporting platform is
-    lost, results may be spooled to a local directory and automaticlaly forwarded when connectivity
-    is re-established.
-9.  Added support for forwarding of probe error messages to reporting platform to allow diagnosis
-    of test related issues on the probe.
-10. Fixed DHCP test errors on RPi reported/fixed by Ben Roeder (Issue #39)
-11. Fixed re-read of config file from github reported/fixed by Ben Roeder (PR #7)
-
-
-v0.1.25
+v2.0.0-beta 6
 1. Using timeout_decorator module to timeout iperf3 sessions that hang whole poller process
 
-v0.1.24
-1. Moved iperf3 tests to use python module rather than wrapper
-2. Include config mods to limit UDP test block sizes, streams=1 and to use
-   zerocopy (whatever that does...)
-3. Explicit destroy of iperf test instances to kill of processes that might hang around.
+v2.0.0-beta 5
+1. Move to using iperf3 python module to fix ongoing iperf3 test issues
+2. Poller module v0.1.24
 
-v0.1.23
-1. Minor fix to close influx client sessions
-2. Additional log header msg for poll status info
-3. Added tidy up code for stuck iperf3 tests
+v2.0.0-beta 4
+1. Added network connectivity files restore during upgrade
+2. Added initial ipv6 support for mgt traffic
 
-v0.1.22
-1. Added support for ipv6 for mgt traffic
-
-v0.1.21
-1. Fixed broken http route lookup
-
-v0.1.20
-1. Added http route tests
-2. Added root user check
+v2.0.0-beta 3
+1. Added checks for sudo operation
+2. Added check for python version
 3. Added searches for missing prog files (for platforms using non-std locations)
-4. Removed non-required configurator code
 
-v0.1.19
-1. Reverted to previous min of v3.6 due to influx client req
 
-v0.1.18
-1. Fixed min req version designation error
+v2.0.0-beta2
 
-v0.1.17
-1. Fixed min req for python to 3.3 in setup file
+1. Fixed bad URL in setup.sh
+2. Removed legacy data location, format & transport settings from config.ini
 
-v0.1.16
-1. Added improved os command checking with attempt to find if hard coded filename not found
+v2.0.0-beta1
 
-v0.1.15
-1. Added platform detection (removed from cfg file)
+1. Initial commit of v2 code
 
-v0.1.14
-1. Fixed DHCP timing issues
 
-v0.1.13
-1. Added hhtp server resonse time support
-
-v0.1.12
-1. Implemented bail on tests on Influx auth failure
-
-v0.1.11
-1. Fixed routing issues
-
-v0.1.10
-1. Fixed data types for wlan data
-
-v0.1.9
-1. Enhanced poll status data with cycle time & mode info
-
-v0.1.8
-1. Improved bad route detection & route injection
-2. Added polled status data 
-
-v0.1.7
-1. Added more checked to detect bad routing due to multiple interfaces updated
-
-v0.1.6
-1. fixed integer/float issue for lost_percent data in to influx
-
-v0.1.5
-1. Improved Splunk token check messages
-
-v0.1.4
-1. Added token check for splunk
-
-v0.1.3
-1. Moved to Python package & uploaded to PyPi
-2. Split off the core poller code from support files
-3. Changed versioning convention to vX.X.X format
-
-v0.12
-1. Added ethernet support for running tests
-2. Added support for InfluxDB and InfluxDB2
-3. Added support for enhanced debugging
-4. Changed data source names to remove references to splunk
-5. Added approximate MOS score calculation for udp test, kindly contributed by Mario Gingras
-
-*** Special Notes: ***
-In this release, you will need to:
-    a. re-create your config.ini file, using config.default.ini as a template
-    b. copy the updated splunk dashboards in dashboards/splunk to any exiting splunk instances
-    c. You must import the influxdb python module with: sudo pip3 install influxdb
-
-v0.11
-1. Added timeouts to http & ping tests
-2. Added optional central config retrieval from github repo
-3. Added iperf timeouts to improve perf when targets down
-
-V0.10
-Added 'connectivity_lookup' parameter to config.default.ini to allow custom DNS lookup when wiperf assesses initial connectivity health.
-
-V0.09
-Added ufw rules to allow http port on wlan & eth
