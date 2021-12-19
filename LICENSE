@@ -1,7 +1,6 @@
-    "wiperf_poller - python module to core polling features for the 
-    wiperf UX network probe."
+    "wiperf - UX network probe."
 
-    Github: https://github.com/wifinigel/wiperf_poller
+    Github: https://github.com/wifinigel/wiperf2
     Contact: wifinigel@gmail.com
 
     Copyright (C) 2021  Nigel Bowden
