@@ -6,10 +6,10 @@ VERSION='2.5.0'
 LOG_FILE="/var/log/wiperf_install.log"
 
 # define global vars
-CLONE_DIR="/usr/share"
-INSTALL_DIR="$CLONE_DIR/wiperf2"
-CFG_DIR="/etc/wiperf2"
-BACKUP_DIR="/etc/.wiperf2"
+CLONE_DIR="/opt"
+INSTALL_DIR="$CLONE_DIR/wiperf"
+CFG_DIR="/etc/wiperf"
+BACKUP_DIR="/etc/.wiperf"
 GITHUB_REPO="https://github.com/wifinigel/wiperf2.git"
 GITHUB_BRANCH='main'
 OPERATION=$1
@@ -91,7 +91,7 @@ install () {
 
   ### install the wiperf poller from local file system - exit if errors
   echo "(ok) Installing wiperf poller python module (please wait)..."  | tee -a $LOG_FILE
-  cd $CLONE_DIR/wiperf2/
+  cd $INSTALL_DIR
   python3 setup.py install >> $LOG_FILE 2>&1
    if [ "$?" != '0' ]; then
       echo "(fail) pip installation of wiperf_poller failed. Exiting." | tee -a $LOG_FILE 
@@ -218,7 +218,7 @@ install () {
       echo "    (For upgrades, copy values from your old config.ini file)"
       echo " 4. Edit the cfg file for your env: sudo nano $CFG_DIR/config.ini"
       echo " 5. Add a cron job to run wiperf regularly, e.g. sudo crontab -e (add line below)"
-      echo "    0-59/5 * * * * /usr/bin/python3 /usr/share/wiperf2/wiperf_run.py > /var/log/wiperf_cron.log 2>&1"
+      echo "    0-59/5 * * * * /usr/bin/python3 /opt/wiperf/wiperf_run.py > /var/log/wiperf_cron.log 2>&1"
       echo " 6. If you are running several probes on a network, change their hostnames to be unique:"
       echo "    sudo nano /etc/hostname (change raspberrypi to your req hostname)"
       echo "    sudo nano /etc/hosts (change raspberrypi to your req hostname)"
@@ -256,7 +256,7 @@ uninstall () {
   # remove python modules
   echo "(ok) Removing Python module" | tee -a $LOG_FILE
   echo "(ok) ...wiperf" | tee -a $LOG_FILE
-  pip3 uninstall -y wiperf2  >> $LOG_FILE 2>&1
+  pip3 uninstall -y wiperf  >> $LOG_FILE 2>&1
 
   # remove directories
   echo "(ok) Removing install dir" | tee -a $LOG_FILE
