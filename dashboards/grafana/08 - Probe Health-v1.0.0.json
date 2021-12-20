@@ -62,7 +62,7 @@
   "panels": [
     {
       "columns": [],
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -319,7 +319,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
@@ -488,7 +488,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fontSize": "100%",
       "gridPos": {
         "h": 9,
@@ -572,7 +572,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=1)",
         "error": null,
         "hide": 2,
@@ -596,7 +596,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=2)",
         "error": null,
         "hide": 2,
@@ -620,7 +620,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=3)",
         "error": null,
         "hide": 2,
@@ -644,7 +644,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=4)",
         "error": null,
         "hide": 2,
@@ -668,7 +668,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=5)",
         "error": null,
         "hide": 2,
@@ -692,7 +692,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=1)",
         "error": null,
         "hide": 2,
@@ -716,7 +716,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=2)",
         "error": null,
         "hide": 2,
@@ -740,7 +740,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=3)",
         "error": null,
         "hide": 2,
@@ -764,7 +764,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=4)",
         "error": null,
         "hide": 2,
@@ -788,7 +788,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=5)",
         "error": null,
         "hide": 2,
@@ -812,7 +812,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 1) ",
         "error": null,
         "hide": 2,
@@ -836,7 +836,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 2)",
         "error": null,
         "hide": 2,
@@ -860,7 +860,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 3) ",
         "error": null,
         "hide": 2,
@@ -884,7 +884,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 4) ",
         "error": null,
         "hide": 2,
@@ -908,7 +908,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 5) ",
         "error": null,
         "hide": 2,
@@ -932,7 +932,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
         "error": null,
         "hide": 0,
@@ -956,7 +956,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -980,7 +980,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1004,7 +1004,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1028,7 +1028,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1052,7 +1052,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1076,7 +1076,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1100,7 +1100,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1124,7 +1124,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1148,7 +1148,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,
@@ -1172,7 +1172,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 2,

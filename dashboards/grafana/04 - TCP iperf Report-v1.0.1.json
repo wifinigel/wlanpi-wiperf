@@ -80,7 +80,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "description": "",
       "fill": 1,
       "fillGradient": 2,
@@ -233,7 +233,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "description": "",
       "fill": 1,
       "fillGradient": 2,
@@ -377,7 +377,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -394,7 +394,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fill": 0,
       "fillGradient": 4,
       "gridPos": {
@@ -644,7 +644,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fill": 1,
       "fillGradient": 8,
       "gridPos": {
@@ -780,7 +780,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fontSize": "100%",
       "gridPos": {
         "h": 9,
@@ -936,7 +936,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_WIPERFDB}",
+      "datasource": "InfluxDB",
       "fill": 2,
       "fillGradient": 1,
       "gridPos": {
@@ -1126,7 +1126,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_WIPERFDB}",
+        "datasource": "InfluxDB",
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
         "hide": 0,
         "includeAll": false,
