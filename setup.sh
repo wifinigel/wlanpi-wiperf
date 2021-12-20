@@ -114,7 +114,7 @@ install () {
   ### move files in ./etc to $CFG_DIR for wlanpi, remove 'etc' dir for rpi
   echo "(ok) Moving etc directory to $CFG_DIR..." | tee -a $LOG_FILE
   mkdir -p $CFG_DIR  >> $LOG_FILE 2>&1
-  mv "$INSTALL_DIR/etc" $CFG_DIR  >> $LOG_FILE 2>&1
+  mv "$INSTALL_DIR/etc" /etc  >> $LOG_FILE 2>&1
   
   if [ -z "$?" ]; then
     echo "(fail) Copy of conf directory failed." | tee -a $LOG_FILE
