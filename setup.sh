@@ -103,7 +103,7 @@ install () {
   ### copy config.ini.default to $CFG_DIR
   echo "(ok) Moving config.default.ini to $CFG_DIR..." | tee -a $LOG_FILE
   mkdir -p $CFG_DIR  >> $LOG_FILE 2>&1
-  mv "$INSTALL_DIR/config.default.ini" $CFG_DIR  >> $LOG_FILE 2>&1
+  mv "$INSTALL_DIR/etc/config.default.ini" $CFG_DIR  >> $LOG_FILE 2>&1
   if [ "$?" != '0' ]; then
     echo "(fail) Move of config.ini.default failed." | tee -a $LOG_FILE
     exit 1
@@ -111,9 +111,9 @@ install () {
     echo "(ok) Copied OK." | tee -a $LOG_FILE
   fi
 
-  ### move files in ./conf to $CFG_DIR for wlanpi, remove 'conf' dir for rpi
+  ### move files in ./etc to $CFG_DIR for wlanpi, remove 'conf' dir for rpi
   echo "(ok) Moving conf directory to $CFG_DIR..." | tee -a $LOG_FILE
-  mv "$INSTALL_DIR/conf" $CFG_DIR  >> $LOG_FILE 2>&1
+  mv "$INSTALL_DIR/etc" $CFG_DIR  >> $LOG_FILE 2>&1
   
   if [ -z "$?" ]; then
     echo "(fail) Copy of conf directory failed." | tee -a $LOG_FILE
@@ -125,7 +125,7 @@ install () {
   if [ "$PLATFORM" = 'rpi' ]; then
     # remove the conf dir if rpi, as don't need it
     echo "(ok) Removing conf directory $CFG_DIR/conf...(not needed on RPi)" | tee -a $LOG_FILE
-    rm -rf $CFG_DIR/conf >> $LOG_FILE 2>&1
+    rm -rf $CFG_DIR/etc >> $LOG_FILE 2>&1
   fi 
 
   # if we have old config files, copy them back in to cfg dir
