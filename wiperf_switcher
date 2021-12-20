@@ -11,7 +11,7 @@ NAME=wiperf_switcher
 DESC="Script to switch wiperf mode on/off"
 STATUS_FILE="/etc/wlanpi-state"
 
-HOME_DIR="/usr/share/wiperf"
+HOME_DIR="/opt/wiperf"
 USERNAME="root"
 CFG_DIR="/etc/wiperf"
 CFG_FILE="$CFG_DIR/config.ini"
@@ -157,9 +157,9 @@ wiperf_on () {
   # 7. Link to wiperf config files
   ##################################
   echo "Linking temp config files..." | tee -a $LOG_FILE
-  ln -s ${CFG_DIR}/conf/etc/network/interfaces /etc/network/interfaces  
-  ln -s ${CFG_DIR}/conf/etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
-  ln -s ${CFG_DIR}/conf/etc/sysctl.conf /etc/sysctl.conf
+  ln -s ${CFG_DIR}/etc/network/interfaces /etc/network/interfaces  
+  ln -s ${CFG_DIR}/etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
+  ln -s ${CFG_DIR}/etc/sysctl.conf /etc/sysctl.conf
 
   ############################################################
   # 8. Create status file to display status messages on FPMS

@@ -140,18 +140,18 @@ install () {
   ### remove switcher if rpi 
   if [ "$PLATFORM" = 'wlanpi' ]; then
 
-    INTERFACES_FILE=${BACKUP_DIR}/conf/network/interfaces
+    INTERFACES_FILE=${BACKUP_DIR}/etc/network/interfaces
     if [ -e "${INTERFACES_FILE}" ] ; then
       echo "(ok) Restoring interfaces file..." | tee -a $LOG_FILE
       # copy files back in to retain old connectivity
-      cp "${INTERFACES_FILE}" ${CFG_DIR}/conf/network/interfaces  >> $LOG_FILE 2>&1
+      cp "${INTERFACES_FILE}" ${CFG_DIR}/etc/network/interfaces  >> $LOG_FILE 2>&1
     fi
 
-    WPA_FILE=${BACKUP_DIR}/conf/etc/wpa_supplicant/wpa_supplicant.conf
+    WPA_FILE=${BACKUP_DIR}/etc/wpa_supplicant/wpa_supplicant.conf
     if [ -e "${WPA_FILE}" ] ; then
       echo "(ok) Restoring supplicant file..." | tee -a $LOG_FILE
       # copy files back in to retain old connectivity
-      cp "${WPA_FILE}" ${CFG_DIR}/conf/etc/wpa_supplicant/wpa_supplicant.conf  >> $LOG_FILE 2>&1
+      cp "${WPA_FILE}" ${CFG_DIR}/etc/wpa_supplicant/wpa_supplicant.conf  >> $LOG_FILE 2>&1
     fi
 
     # copy wiperf_switcher to /usr/bin/wiperf_switcher
@@ -238,7 +238,7 @@ install () {
      echo " 1. Copy default cfg file to live cfg:  sudo cp $CFG_DIR/config.default.ini $CFG_DIR/config.ini"
      echo "    (For upgrades, copy values from your old config.ini file)"
      echo " 2. Edit the cfg file for your env: sudo nano $CFG_DIR/config.ini"
-     echo " 3. Edit the WLAN config file for your env: sudo nano $CFG_DIR/conf/etc/wpa_supplicant/wpa_supplicant.conf" 
+     echo " 3. Edit the WLAN config file for your env: sudo nano $CFG_DIR/etc/wpa_supplicant/wpa_supplicant.conf" 
      echo "    (add WLAN info)"
      echo " 4. Reboot the WLAN Pi before first-use from fpms: sudo sync; sudo reboot"
      echo ""
