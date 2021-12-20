@@ -11,6 +11,17 @@ set -e
 
 source .env
 
+# random pwd generator
+rand_pwd() {
+  < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-20};echo;
+}
+
+# create passwords
+DB_PWD=$(rand_pwd)
+DB_GRAFANA_PWD=$(rand_pwd)
+DB_PROBE_PWD=$(rand_pwd)
+GRAFANA_PWD=$(rand_pwd)
+
 echo ""
 echo "* ========================="
 echo "* Installing Grafana..."
@@ -96,27 +107,14 @@ sudo cp influx_datasource.yaml /etc/grafana/provisioning/datasources/
 sudo systemctl restart grafana-server
 
 # add dashboard to Grafana
-echo "* Adding dashboard to Grafana..."
-sudo cp  dashboard/WLAN_Pi_Monitor.json /usr/share/grafana/public/dashboards/
+echo "* Adding dashboards to Grafana..."
+sudo cp  ../../dashboards/grafana/*.json /usr/share/grafana/public/dashboards/
 sudo cp import_dashboard.yaml /etc/grafana/provisioning/dashboards/
 sudo systemctl restart grafana-server
 
-# set crontab 
-echo "* adding crontab job to start polling..."
-if crontab -u wlanpi -l &>/dev/null; then
-  # Keep existing cron jobs and add ours
-  { crontab -u wlanpi -l 2>/dev/null; echo "*/1 * * * * /home/wlanpi/wlanpi_monitor/get_stats.sh"; } | crontab -u wlanpi -
-else 
-  # There are no existing cron jobs, let's add our job as the very first one
-  echo "*/1 * * * * /home/wlanpi/wlanpi_monitor/get_stats.sh" | crontab -u wlanpi -
-fi
-echo "All cron jobs of user \"wlanpi\" after we've finished:"
-crontab -u wlanpi -l
-echo "* Done."
-
 echo ""
 echo "* ================================================"
-echo "* Browse Grafana at: http://$(hostname -I | xargs):${GRAFANA_PORT}/ (user/pwd=$GRAFANA_USER/$GRAFANA_PWD)"
+echo "* Browse Grafana at: http://$(hostname -I | cut -d" " -f1):${GRAFANA_PORT}/ (user/pwd=$GRAFANA_USER/$GRAFANA_PWD)"
 echo "* ================================================"
 echo ""
 echo ""
