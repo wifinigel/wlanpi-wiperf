@@ -1,5 +1,5 @@
 datasources:
- - name: Influx_WLAN_Pi
+ - name: InfluxDB
    type: "influxdb"
    typeName: "InfluxDB"
    typeLogoUrl: "public/app/plugins/datasource/influxdb/img/influxdb_logo.svg"
