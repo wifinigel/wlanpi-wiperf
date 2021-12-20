@@ -300,7 +300,7 @@ case "$1" in
         ;;
   *)
         N=/usr/share/wiperf/$NAME
-        echo "Usage: $N {on|off|status|version}" >&2
+        echo "Usage: $N {on|off|status}" >&2
         exit 0
         ;;
 esac
