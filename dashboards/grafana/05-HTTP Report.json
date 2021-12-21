@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_WIPERFDB",
-      "label": "WiperfDB",
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
       "description": "",
       "type": "datasource",
       "pluginId": "influxdb",
@@ -14,12 +14,12 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "6.7.4"
+      "version": "8.0.5"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -30,8 +30,8 @@
     },
     {
       "type": "panel",
-      "id": "table",
-      "name": "Table",
+      "id": "table-old",
+      "name": "Table (old)",
       "version": ""
     }
   ],
@@ -54,31 +54,25 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1594545671299,
+  "iteration": 1640122906315,
   "links": [
     {
       "$$hashKey": "object:160",
+      "asDropdown": true,
       "icon": "dashboard",
-      "tags": [],
-      "title": "Probe Summary Dashboard",
+      "tags": [
+        "wlanpi"
+      ],
+      "title": "Dashboards",
       "tooltip": "",
-      "type": "link",
-      "url": "dashboard/db/01-probe-summary"
-    },
-    {
-      "$$hashKey": "object:164",
-      "icon": "info",
-      "tags": [],
-      "title": "Help",
-      "tooltip": "Help Page",
-      "type": "link",
-      "url": "https://wifinigel.github.io/wiperf/db_http/#grafana"
+      "type": "dashboards",
+      "url": ""
     }
   ],
   "panels": [
     {
       "collapsed": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -95,7 +89,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -121,9 +121,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -467,7 +468,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -493,9 +500,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -839,8 +847,14 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -866,10 +880,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1185,7 +1199,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 10,
       "gridPos": {
@@ -1211,9 +1231,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -1420,7 +1441,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -1446,9 +1473,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -1655,7 +1683,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -1681,9 +1715,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -1890,7 +1925,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -1916,9 +1957,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -2125,7 +2167,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -2151,9 +2199,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 1,
       "points": true,
       "renderer": "flot",
@@ -2357,7 +2406,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2374,7 +2423,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 8,
       "gridPos": {
@@ -2400,10 +2455,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 0.5,
       "points": true,
       "renderer": "flot",
@@ -2513,7 +2566,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 4,
       "gridPos": {
@@ -2538,10 +2597,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 0.5,
       "points": true,
       "renderer": "flot",
@@ -2760,7 +2817,7 @@
     },
     {
       "columns": [],
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "fontSize": "100%",
       "gridPos": {
         "h": 7,
@@ -2909,14 +2966,20 @@
       "timeShift": null,
       "title": "Wireless Connection Details - $WLANPi",
       "transform": "timeseries_to_columns",
-      "type": "table"
+      "type": "table-old"
     },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 2,
       "fillGradient": 1,
       "gridPos": {
@@ -2943,10 +3006,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3098,19 +3159,22 @@
       }
     }
   ],
-  "schemaVersion": 22,
+  "schemaVersion": 30,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "wlanpi"
+  ],
   "templating": {
     "list": [
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=1)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "DNS_TARGET1",
@@ -3121,7 +3185,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3129,11 +3192,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=2)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "DNS_TARGET2",
@@ -3144,7 +3208,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3152,11 +3215,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=3)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "DNS_TARGET3",
@@ -3167,7 +3231,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3175,11 +3238,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=4)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "DNS_TARGET4",
@@ -3190,7 +3254,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3198,11 +3261,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=5)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "DNS_TARGET5",
@@ -3213,7 +3277,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3221,11 +3284,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=1)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "HTTP_TARGET1",
@@ -3236,7 +3300,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3244,11 +3307,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=2)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "HTTP_TARGET2",
@@ -3259,7 +3323,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3267,11 +3330,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=3)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "HTTP_TARGET3",
@@ -3282,7 +3346,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3290,11 +3353,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=4)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "HTTP_TARGET4",
@@ -3305,7 +3369,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3313,11 +3376,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=5)",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "HTTP_TARGET5",
@@ -3328,7 +3392,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3336,11 +3399,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 1) ",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "PING_TARGET1",
@@ -3351,7 +3415,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3359,11 +3422,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 2) ",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "PING_TARGET2",
@@ -3374,7 +3438,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3382,11 +3445,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 3) ",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "PING_TARGET3",
@@ -3397,7 +3461,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3405,11 +3468,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 4) ",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "PING_TARGET4",
@@ -3420,7 +3484,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3428,11 +3491,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "SELECT last(\"ping_host\") FROM \"wiperf-ping\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"ping_index\" = 5) ",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "",
         "multi": false,
         "name": "PING_TARGET5",
@@ -3443,7 +3507,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3451,11 +3514,12 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "InfluxDB",
+        "datasource": "${DS_INFLUXDB}",
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
-        "index": -1,
         "label": "Select Probe:",
         "multi": false,
         "name": "WLANPi",
@@ -3466,7 +3530,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3494,8 +3557,5 @@
   "timezone": "",
   "title": "05 - HTTP Report",
   "uid": "dBLOQ-WGz",
-  "variables": {
-    "list": []
-  },
-  "version": 4
+  "version": 2
 }
