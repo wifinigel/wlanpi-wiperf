@@ -6,8 +6,8 @@ datasources:
    access: proxy
    orgId: 1
    url: http://127.0.0.1:8086
-   password: "wlanpi_1963"
-   user: "wlanpi"
+   password:
+   user: "grafana"
    database: "wlanpi"
    basicAuth: False
    isDefault: true
