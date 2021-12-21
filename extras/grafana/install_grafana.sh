@@ -148,7 +148,6 @@ sudo systemctl restart grafana-server
 CFG_FILE_NAME=/etc/wiperf/config.ini
 sudo cp /etc/wiperf/config.default.ini $CFG_FILE_NAME
 sudo sed -i "s/exporter_type:.*$/exporter_type: influxdb/" $CFG_FILE_NAME
-influx_host: 
 sudo sed -i "s/influx_host:.*$/influx_host: 127.0.0.1/" $CFG_FILE_NAME
 sudo sed -i "s/influx_username:.*$/influx_username: $DB_PROBE_USER/" $CFG_FILE_NAME
 sudo sed -i "s/influx_password:.*$/influx_password: $DB_PROBE_PWD/" $CFG_FILE_NAME
