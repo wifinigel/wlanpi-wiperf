@@ -75,7 +75,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -235,7 +235,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -386,7 +386,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -403,7 +403,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -660,7 +660,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -803,7 +803,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fontSize": "100%",
       "gridPos": {
         "h": 9,
@@ -959,7 +959,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1158,7 +1158,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": "InfluxDB",
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
         "description": null,
         "error": null,

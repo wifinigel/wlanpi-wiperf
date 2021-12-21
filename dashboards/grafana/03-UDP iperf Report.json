@@ -75,7 +75,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -217,7 +217,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -389,7 +389,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -646,7 +646,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -793,7 +793,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -986,7 +986,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1129,7 +1129,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1143,7 +1143,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fontSize": "100%",
       "gridPos": {
         "h": 9,
@@ -1305,7 +1305,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": "InfluxDB",
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
         "description": null,
         "error": null,
