@@ -11,6 +11,7 @@ set -e
 
 # TODO: add check for Internet conenctivity, otherwise this will fail
 # TODO: change to the directory of this script as some action rely on relative paths
+# TODO: fix ufw port issue (have to run with ufw disabled at present)
 
 # random pwd generator
 rand_pwd() {
