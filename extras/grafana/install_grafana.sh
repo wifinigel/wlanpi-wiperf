@@ -9,18 +9,30 @@ fi
 
 set -e
 
-source .env
+# TODO: add check for Internet conenctivity, otherwise this will fail
+# TODO: change to the directory of this script as some action rely on relative paths
 
 # random pwd generator
 rand_pwd() {
   < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-20};echo;
 }
 
-# create passwords
+# Grafana admin user
+GRAFANA_PORT=4000
+GRAFANA_USER=wlanpi
+GRAFANA_PWD=wlanpi
+
+# Influx DB admin
+DB_USER=wlanpi
 DB_PWD=$(rand_pwd)
+
+# Influx grafana user
+DB_GRAFANA_USER=grafana
 DB_GRAFANA_PWD=$(rand_pwd)
+
+# Influx probe user
+DB_PROBE_USER=wiperf_probe
 DB_PROBE_PWD=$(rand_pwd)
-GRAFANA_PWD=$(rand_pwd)
 
 echo ""
 echo "* ========================="
@@ -93,17 +105,37 @@ echo "* Configuring InfluxDB..."
 echo "* ========================="
 
 echo "* Creating DB & users..."
-influx -execute "create database wlanpi" 
-influx -execute "create retention policy wiperf_30_days on wlanpi duration 30d replication 1" -database wlanpi
-influx -execute "create user $DB_USER with password '$DB_PWD' with all privileges" -database wlanpi
+# create DB
+DB_NAME="wlanpi"
+influx -execute "create database $DB_NAME" 
+influx -execute "create retention policy wiperf_30_days on wlanpi duration 30d replication 1" -database $DB_NAME
 
+# create DB admin user
+influx -execute "create user $DB_USER with password '$DB_PWD' with all privileges"
 
+# create grafana user with read-ony to pull stats
+influx -execute "CREATE USER $DB_GRAFANA_USER WITH PASSWORD '$DB_GRAFANA_PWD'"
+influx -execute "GRANT read ON $DB_NAME TO $DB_GRAFANA_USER"
+
+# create wiperf probe user with write access
+influx -execute "CREATE USER $DB_PROBE_USER WITH PASSWORD '$DB_PROBE_PWD'"
+influx -execute "GRANT WRITE ON $DB_NAME TO $DB_PROBE_USER"
+
+# enable DB authentication
 sudo sed -i 's/# auth-enabled = false/auth-enabled = true/g' /etc/influxdb/influxdb.conf
 sudo systemctl restart influxdb
 
 # add data source to Grafana
 echo "* Adding DB as data source to Grafana..."
+
+echo "* Adding DB name & credentials for data source."
+sudo sed -i "s/password:.*$/password: \"$DB_GRAFANA_PWD\"/" influx_datasource.yaml
+sudo sed -i "s/user:.*$/user: \"$DB_GRAFANA_USER\"/" influx_datasource.yaml
+sudo sed -i "s/database:.*$/database: \"$DB_NAME\"/" influx_datasource.yaml
+
 sudo cp influx_datasource.yaml /etc/grafana/provisioning/datasources/
+
+echo "* Restarting grafana."
 sudo systemctl restart grafana-server
 
 # add dashboard to Grafana
@@ -111,6 +143,32 @@ echo "* Adding dashboards to Grafana..."
 sudo cp  ../../dashboards/grafana/*.json /usr/share/grafana/public/dashboards/
 sudo cp import_dashboard.yaml /etc/grafana/provisioning/dashboards/
 sudo systemctl restart grafana-server
+
+# create probe config.ini file and add influx credentials
+CFG_FILE_NAME=/etc/wiperf/config.ini
+sudo cp /etc/wiperf/config.default.ini $CFG_FILE_NAME
+sudo sed -i "s/exporter_type:.*$/exporter_type: influxdb/" $CFG_FILE_NAME
+influx_host: 
+sudo sed -i "s/influx_host:.*$/influx_host: 127.0.0.1/" $CFG_FILE_NAME
+sudo sed -i "s/influx_username:.*$/influx_username: $DB_PROBE_USER/" $CFG_FILE_NAME
+sudo sed -i "s/influx_password:.*$/influx_password: $DB_PROBE_PWD/" $CFG_FILE_NAME
+sudo sed -i "s/influx_database:.*$/influx_database: $DB_NAME/" $CFG_FILE_NAME
+
+# setup a cron job to run the probe
+echo "* adding crontab job to start polling..."
+if crontab -l | grep wiperf; then
+  echo "* Looks like we already have a probe cron job. Nothing added."
+else 
+  # add probe polling job
+  TMP_CRON_FILE=cron.tmp
+  crontab -l > $TMP_CRON_FILE
+  echo "*/1 * * * * python3 /opt/wiperf/wiperf_run.py" >> $TMP_CRON_FILE
+  crontab $TMP_CRON_FILE
+  rm $TMP_CRON_FILE
+fi
+echo "Cron jobs:"
+crontab -u wlanpi -l
+echo "* Done."
 
 echo ""
 echo "* ================================================"
