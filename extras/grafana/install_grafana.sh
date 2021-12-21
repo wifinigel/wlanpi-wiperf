@@ -3,7 +3,7 @@
 # manual Grafana installation for WLANPi RPi edition
 
 if [ $EUID -ne 0 ]; then
-   echo "This script must be run as root" 
+   echo "This script must be run as root (e.g. use 'sudo')" 
    exit 1
 fi
 
@@ -148,6 +148,7 @@ sudo systemctl restart grafana-server
 # create probe config.ini file and add influx credentials
 CFG_FILE_NAME=/etc/wiperf/config.ini
 sudo cp /etc/wiperf/config.default.ini $CFG_FILE_NAME
+sudo sed -i "s/mgt_if:.*$/mgt_if: lo/" $CFG_FILE_NAME
 sudo sed -i "s/exporter_type:.*$/exporter_type: influxdb/" $CFG_FILE_NAME
 sudo sed -i "s/influx_host:.*$/influx_host: 127.0.0.1/" $CFG_FILE_NAME
 sudo sed -i "s/influx_username:.*$/influx_username: $DB_PROBE_USER/" $CFG_FILE_NAME
