@@ -3,7 +3,7 @@
 # manual Grafana removal for WLANPi RPi edition
 
 if [ $EUID -ne 0 ]; then
-   echo "This script must be run as root" 
+   echo "This script must be run as root (e.g. use 'sudo')" 
    exit 1
 fi
 
@@ -44,7 +44,7 @@ sudo rm -rf /var/lib/influxdb
 sudo rm /etc/default/influxdb
 
 echo "* Removing cron job."
-crontab -l | grep -v 'get_stats.sh'  | crontab -
+crontab -l | grep -v 'wiperf_run.py'  | crontab -
 
 # tidy up grafana binaries downloaded
 sudo rm grafana*.deb*
