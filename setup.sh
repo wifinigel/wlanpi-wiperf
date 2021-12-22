@@ -100,17 +100,6 @@ install () {
       echo "(ok) wiperf_poller module python installed" | tee -a $LOG_FILE 
   fi
 
-  ### copy config.ini.default to $CFG_DIR
-  #echo "(ok) Moving config.default.ini to $CFG_DIR..." | tee -a $LOG_FILE
-  #mkdir -p $CFG_DIR  >> $LOG_FILE 2>&1
-  #mv "$INSTALL_DIR/etc/wiperf/config.default.ini" $CFG_DIR  >> $LOG_FILE 2>&1
-  #if [ "$?" != '0' ]; then
-  #  echo "(fail) Move of config.ini.default failed." | tee -a $LOG_FILE
-  #  exit 1
-  #else
-  #  echo "(ok) Copied OK." | tee -a $LOG_FILE
-  #fi
-
   ### move files in ./etc to $CFG_DIR for wlanpi, remove 'etc' dir for rpi
   echo "(ok) Moving etc directory to $CFG_DIR..." | tee -a $LOG_FILE
   #mkdir -p $CFG_DIR  >> $LOG_FILE 2>&1
