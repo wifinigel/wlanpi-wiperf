@@ -27,7 +27,9 @@ sudo rm -rf /var/log/grafana
 sudo rm -rf /usr/share/grafana
 
 echo "* Restoring firewall port."
-sudo ufw deny $GRAFANA_PORT
+sudo ufw delete allow in on eth0 to any port ${GRAFANA_PORT}
+sudo ufw delete allow in on wlan0 to any port ${GRAFANA_PORT}
+sudo ufw delete allow in on wlan1 to any port ${GRAFANA_PORT}
 
 echo "* Done."
 

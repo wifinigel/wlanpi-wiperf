@@ -61,7 +61,9 @@ sudo sed -i 's/;http_port = 3000/http_port = '"$GRAFANA_PORT"'/g' /etc/grafana/g
 
 # open port on ufw firewall
 echo "* Opening FW port for Grafana."
-sudo ufw allow ${GRAFANA_PORT}
+sudo ufw allow in on eth0 to any port ${GRAFANA_PORT}
+sudo ufw allow in on wlan0 to any port ${GRAFANA_PORT}
+sudo ufw allow in on wlan1 to any port ${GRAFANA_PORT}
 
 # take care of grafana service
 echo "* Enabling & starting Grafana service."
