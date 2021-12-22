@@ -252,6 +252,7 @@ uninstall () {
   echo "(ok) Removing install dir" | tee -a $LOG_FILE
   rm -rf $INSTALL_DIR  >> $LOG_FILE 2>&1
   echo "(ok) Removing config dir" | tee -a $LOG_FILE
+  rm -rf "${BACKUP_DIR}" >> $LOG_FILE 2>&1
   mv $CFG_DIR "${BACKUP_DIR}" >> $LOG_FILE 2>&1
 
   echo "(ok) Removing switcher script" | tee -a $LOG_FILE
