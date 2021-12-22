@@ -202,19 +202,8 @@ wiperf_off () {
 
    echo "Starting switch from wiperf mode to classic mode" | tee -a $LOG_FILE
 
-  ############################################
-  # 1. Get the probe mode (ethernet/wireless)
-  ############################################
-  MODE=`cat ${CFG_FILE} | grep 'probe_mode:' | awk -F'[: ]*' '{print $2}'` || true
-  if  [ -z "$MODE" ]; then
-    echo "No mode found in config file (exiting)" | tee -a $LOG_FILE 
-    exit 1
-  fi
-
-  echo "Selected mode in cfg file: ${MODE}" | tee -a $LOG_FILE
-  
   ###########################################
-  # 2. Remove crontab entry to stop polling
+  # 1. Remove crontab entry to stop polling
   ###########################################
   echo "Removing cron job." | tee -a $LOG_FILE
   crontab -u $USERNAME -l | grep -v 'wiperf_run.py'  | crontab -u $USERNAME -
@@ -227,7 +216,7 @@ wiperf_off () {
   echo "Cron entry removed" | tee -a $LOG_FILE
   
   ##################################
-  # 3. Remove eth0 & wlan0 fw rules
+  # 2. Remove eth0 & wlan0 fw rules
   ##################################
   ufw delete allow in on eth0 to any port ssh
   ufw delete allow in on eth0 to any port http
@@ -237,7 +226,7 @@ wiperf_off () {
   ufw delete deny in on wlan0
 
   ##################################
-  # 4. Remove links to config files
+  # 3. Remove links to config files
   ##################################
   echo "Removing links to temp config files" | tee -a $LOG_FILE
   unlink /etc/network/interfaces
@@ -245,7 +234,7 @@ wiperf_off () {
   unlink /etc/wpa_supplicant/wpa_supplicant.conf
  
   ###################################
-  # 5. Restore original config files
+  # 4. Restore original config files
   ###################################
   declare -a arr=(
       "/etc/network/interfaces" 
@@ -263,13 +252,13 @@ wiperf_off () {
   done
 
   ###################################
-  # 6. Update FPMS status file
+  # 5. Update FPMS status file
   ###################################
   echo "WLANPi will now reboot"
   echo "classic" > $STATUS_FILE
 
   ###################################
-  # 7. Reboot
+  # 6. Reboot
   ###################################
   echo "Rebooting" | tee -a $LOG_FILE
   sleep 1
