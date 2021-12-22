@@ -135,6 +135,9 @@ wiperf_on () {
   ufw insert 4 allow in on wlan0 to any port ssh
   ufw insert 5 allow in on wlan0 to any port http
   ufw insert 6 deny in on wlan0
+  ufw insert 7 allow in on wlan1 to any port ssh
+  ufw insert 8 allow in on wlan1 to any port http
+  ufw insert 9 deny in on wlan1
 
   ##################################
   # 6. Backup existing config files
@@ -224,6 +227,9 @@ wiperf_off () {
   ufw delete allow in on wlan0 to any port ssh
   ufw delete allow in on wlan0 to any port http
   ufw delete deny in on wlan0
+  ufw delete allow in on wlan1 to any port ssh
+  ufw delete allow in on wlan1 to any port http
+  ufw delete deny in on wlan1
 
   ##################################
   # 3. Remove links to config files
