@@ -143,7 +143,7 @@ sudo systemctl restart grafana-server
 
 # add dashboard to Grafana
 echo "* Adding dashboards to Grafana..."
-sudo cp  ../../dashboards/grafana/*.json /usr/share/grafana/public/dashboards/
+sudo cp  /opt/wiperf/dashboards/grafana/*.json /usr/share/grafana/public/dashboards/
 sudo cp import_dashboard.yaml /etc/grafana/provisioning/dashboards/
 sudo systemctl restart grafana-server
 
