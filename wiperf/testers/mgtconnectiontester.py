@@ -4,9 +4,9 @@ import subprocess
 from socket import gethostbyname
 import requests
 
-from wiperf_poller.helpers.ethernetadapter import EthernetAdapter
-from wiperf_poller.helpers.route import check_correct_mgt_interface, inject_mgt_static_route, is_ipv6
-from wiperf_poller.helpers.os_cmds import NC_CMD
+from wiperf.helpers.ethernetadapter import EthernetAdapter
+from wiperf.helpers.route import check_correct_mgt_interface, inject_mgt_static_route, is_ipv6
+from wiperf.helpers.os_cmds import NC_CMD
 
 class MgtConnectionTester(object):
     """

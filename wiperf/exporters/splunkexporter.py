@@ -1,9 +1,9 @@
 """
 A class to perform data export to Splunk using the HTTP event logger (HEC).
 """
-from wiperf_poller.helpers.os_cmds import NC_CMD
-from wiperf_poller.helpers.route import is_ipv6
-from wiperf_poller.helpers.timefunc import time_synced
+from wiperf.helpers.os_cmds import NC_CMD
+from wiperf.helpers.route import is_ipv6
+from wiperf.helpers.timefunc import time_synced
 import json
 import requests
 import subprocess

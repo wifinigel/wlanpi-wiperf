@@ -2,7 +2,7 @@ import re
 import subprocess
 import sys
 import time
-from wiperf_poller.helpers.os_cmds import IWCONFIG_CMD, IW_CMD, IF_CONFIG_CMD, ROUTE_CMD, IF_DOWN_CMD, IF_UP_CMD
+from wiperf.helpers.os_cmds import IWCONFIG_CMD, IW_CMD, IF_CONFIG_CMD, ROUTE_CMD, IF_DOWN_CMD, IF_UP_CMD
 
 
 class WirelessAdapter(object):

@@ -1,6 +1,6 @@
 import datetime
 import sys
-from wiperf_poller.helpers.timefunc import time_synced, now_as_msecs
+from wiperf.helpers.timefunc import time_synced, now_as_msecs
 
 # module import vars
 influx_modules = True

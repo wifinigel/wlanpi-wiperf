@@ -7,8 +7,8 @@ import time
 import re
 import subprocess
 from sys import stderr
-from wiperf_poller.helpers.os_cmds import PING_CMD
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.os_cmds import PING_CMD
+from wiperf.helpers.timefunc import get_timestamp
 
 class PingTester(object):
     '''

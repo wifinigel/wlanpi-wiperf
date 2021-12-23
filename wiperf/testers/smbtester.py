@@ -8,9 +8,9 @@ import re
 import os
 import subprocess
 import timeout_decorator
-from wiperf_poller.helpers.os_cmds import SMB_CP, SMB_MOUNT, MOUNT, LS_CMD, UMOUNT_CMD
-from wiperf_poller.helpers.route import inject_test_traffic_static_route
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.os_cmds import SMB_CP, SMB_MOUNT, MOUNT, LS_CMD, UMOUNT_CMD
+from wiperf.helpers.route import inject_test_traffic_static_route
+from wiperf.helpers.timefunc import get_timestamp
 
 class SmbTester(object):
     '''

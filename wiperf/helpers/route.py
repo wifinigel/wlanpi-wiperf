@@ -3,7 +3,7 @@ from socket import gethostbyname
 import subprocess
 import re
 import sys
-from wiperf_poller.helpers.os_cmds import IP_CMD
+from wiperf.helpers.os_cmds import IP_CMD
 
 def is_ipv4(ip_address):
     """

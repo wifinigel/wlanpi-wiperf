@@ -7,7 +7,7 @@ import os
 import sys
 import datetime
 import subprocess
-from wiperf_poller.helpers.os_cmds import REBOOT_CMD
+from wiperf.helpers.os_cmds import REBOOT_CMD
 
 ####################################
 # Unit bouncer

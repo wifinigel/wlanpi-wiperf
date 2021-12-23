@@ -4,7 +4,7 @@ Miscellaneous time functions
 
 import time
 import subprocess
-from wiperf_poller.helpers.os_cmds import TIMEDATECTL_CMD
+from wiperf.helpers.os_cmds import TIMEDATECTL_CMD
 
 def time_synced():
 

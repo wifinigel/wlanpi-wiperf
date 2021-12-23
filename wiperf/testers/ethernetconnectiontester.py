@@ -3,11 +3,11 @@ import time
 import subprocess
 from socket import gethostbyname
 
-from wiperf_poller.helpers.ethernetadapter import EthernetAdapter
-from wiperf_poller.testers.mgtconnectiontester import MgtConnectionTester
-from wiperf_poller.helpers.route import check_correct_mode_interface, inject_default_route
-from wiperf_poller.helpers.timefunc import time_synced
-from wiperf_poller.testers.pingtester import PingTester
+from wiperf.helpers.ethernetadapter import EthernetAdapter
+from wiperf.testers.mgtconnectiontester import MgtConnectionTester
+from wiperf.helpers.route import check_correct_mode_interface, inject_default_route
+from wiperf.helpers.timefunc import time_synced
+from wiperf.testers.pingtester import PingTester
 
 class EthernetConnectionTester(object):
     """

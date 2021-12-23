@@ -6,8 +6,8 @@ result characteristics
 import time
 import re
 import subprocess
-from wiperf_poller.helpers.os_cmds import GREP_CMD,WPA_CMD
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.os_cmds import GREP_CMD,WPA_CMD
+from wiperf.helpers.timefunc import get_timestamp
 import datetime
 
 class AuthTester(object):

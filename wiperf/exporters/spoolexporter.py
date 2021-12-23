@@ -21,7 +21,7 @@ import os
 import shutil
 import sys
 from datetime import datetime, timedelta
-from wiperf_poller.helpers.timefunc import get_timestamp, time_synced
+from wiperf.helpers.timefunc import get_timestamp, time_synced
 
 class SpoolExporter(object):
     """

@@ -7,7 +7,7 @@ import warnings
 import requests
 from requests.exceptions import HTTPError
 import urllib3
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.timefunc import get_timestamp
 
 class HttpTester(object):
     '''

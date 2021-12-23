@@ -13,9 +13,9 @@ import signal
 from iperf3 import Client
 import timeout_decorator
 
-from wiperf_poller.testers.pingtester import PingTester
-from wiperf_poller.helpers.route import inject_test_traffic_static_route
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.testers.pingtester import PingTester
+from wiperf.helpers.route import inject_test_traffic_static_route
+from wiperf.helpers.timefunc import get_timestamp
 
 class IperfTester(object):
     """

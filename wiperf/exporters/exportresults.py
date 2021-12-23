@@ -7,12 +7,12 @@ import os
 import sys
 from socket import gethostname
 
-from wiperf_poller.exporters.splunkexporter import SplunkExporter
-from wiperf_poller.exporters.influxexporter2 import influxexporter2
-from wiperf_poller.exporters.influxexporter import influxexporter
-from wiperf_poller.exporters.spoolexporter import SpoolExporter
-from wiperf_poller.helpers.route import is_ipv6
-from wiperf_poller.exporters.cacheexporter import CacheExporter
+from wiperf.exporters.splunkexporter import SplunkExporter
+from wiperf.exporters.influxexporter2 import influxexporter2
+from wiperf.exporters.influxexporter import influxexporter
+from wiperf.exporters.spoolexporter import SpoolExporter
+from wiperf.helpers.route import is_ipv6
+from wiperf.exporters.cacheexporter import CacheExporter
 
 class ResultsExporter(object):
     """

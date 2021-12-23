@@ -3,8 +3,8 @@ import sys
 import time
 import subprocess
 import json
-from wiperf_poller.helpers.os_cmds import LIBRESPEED_CMD
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.os_cmds import LIBRESPEED_CMD
+from wiperf.helpers.timefunc import get_timestamp
 
 class Speedtester(object):
     """

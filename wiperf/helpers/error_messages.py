@@ -4,7 +4,7 @@ Error messages class - reports error messages detected in current poll cycle
 import time
 import os
 import re
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.timefunc import get_timestamp
 
 class ErrorMessages():
 

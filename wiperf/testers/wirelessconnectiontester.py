@@ -2,12 +2,12 @@ import sys
 import time
 from socket import gethostbyname
 
-from wiperf_poller.helpers.wirelessadapter import WirelessAdapter
-from wiperf_poller.testers.mgtconnectiontester import MgtConnectionTester
-from wiperf_poller.helpers.route import check_correct_mode_interface, inject_default_route
-from wiperf_poller.testers.pingtester import PingTester
-from wiperf_poller.helpers.timefunc import time_synced
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.wirelessadapter import WirelessAdapter
+from wiperf.testers.mgtconnectiontester import MgtConnectionTester
+from wiperf.helpers.route import check_correct_mode_interface, inject_default_route
+from wiperf.testers.pingtester import PingTester
+from wiperf.helpers.timefunc import time_synced
+from wiperf.helpers.timefunc import get_timestamp
 
 class WirelessConnectionTester(object):
     """

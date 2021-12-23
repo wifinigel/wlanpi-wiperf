@@ -2,7 +2,7 @@
 Poll status class - reports status messages of current poll cycle to mgt platform
 """
 import time
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.timefunc import get_timestamp
 
 class PollStatus():
 

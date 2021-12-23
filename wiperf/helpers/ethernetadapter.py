@@ -2,7 +2,7 @@ import re
 import subprocess
 import sys
 import time
-from wiperf_poller.helpers.os_cmds import IP_CMD, ROUTE_CMD, IF_DOWN_CMD, IF_UP_CMD
+from wiperf.helpers.os_cmds import IP_CMD, ROUTE_CMD, IF_DOWN_CMD, IF_UP_CMD
 
 
 class EthernetAdapter(object):

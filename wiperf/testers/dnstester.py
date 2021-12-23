@@ -3,7 +3,7 @@ A simple class to perform a DNS lookup against a number of targets and return th
 '''
 import time
 import socket
-from wiperf_poller.helpers.timefunc import get_timestamp
+from wiperf.helpers.timefunc import get_timestamp
 
 class DnsTester(object):
     '''
