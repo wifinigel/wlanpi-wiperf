@@ -52,6 +52,64 @@ sudo venv/bin/python3 -m wiperf --debug
 
 Further reading on executing modules with Python at <https://docs.python.org/3/library/runpy.html>.
 
+## Build Debian Package for Testing 
+
+On your _build host_, install the build tools (these are only needed on your build host):
+
+```bash
+sudo apt-get install build-essential debhelper devscripts equivs python3-pip python3-all-dev python3-setuptools dh-virtualenv
+```
+
+Install Python depends:
+
+```bash
+python3 -m pip install mock
+```
+
+Update pip, setuptools, and install wheels:
+
+```bash
+python3 -m pip install -U pip setuptools wheel
+```
+
+This is required, otherwise the tooling will fail when tries to evaluate which tests to run.
+
+## This will install build dependencies
+
+```bash
+sudo mk-build-deps -ri
+```
+
+## Building our project
+
+From the root directory of this repository run:
+
+```bash
+dpkg-buildpackage -us -uc -b
+```
+
+Note that -us -uc disables signing the package with GPG. So, if you want to build, test with lintian, sign with GPG:
+
+```bash
+debuild
+```
+
+If you are found favorable by the packaging gods, you should see some output files at `../wlanpi-app` like this:
+
+```bash
+dpkg-deb: building package 'wlanpi-app-dbgsym' in '../wlanpi-app-dbgsym_0.0.1~rc1_arm64.deb'.
+dpkg-deb: building package 'wlanpi-app' in '../wlanpi-app_0.0.1~rc1_arm64.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../wlanpi-app_0.0.1~rc1_arm64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+(venv) wlanpi@rbpi4b-8gb:[~/dev/wlanpi-app]: ls .. | grep wlanpi-app_
+wlanpi-app_0.0.1~rc1_arm64.buildinfo
+wlanpi-app_0.0.1~rc1_arm64.changes
+wlanpi-app_0.0.1~rc1_arm64.deb
+```
+
 ## Cheatsheet
 
 New environment?
