@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import wiperf_poller.__main__ as agent
+import sys
+
+from wiperf import wiperf
 
 # run wiperf agent
-agent.run()
+sys.ext(wiperf.main())
 
