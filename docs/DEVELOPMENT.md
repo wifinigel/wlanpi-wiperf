@@ -88,12 +88,6 @@ From the root directory of this repository run:
 dpkg-buildpackage -us -uc -b
 ```
 
-Note that -us -uc disables signing the package with GPG. So, if you want to build, test with lintian, sign with GPG:
-
-```bash
-debuild
-```
-
 If you are found favorable by the packaging gods, you should see some output files at `../wlanpi-app` like this:
 
 ```bash
@@ -108,6 +102,19 @@ dpkg-buildpackage: info: binary-only upload (no source included)
 wlanpi-app_0.0.1~rc1_arm64.buildinfo
 wlanpi-app_0.0.1~rc1_arm64.changes
 wlanpi-app_0.0.1~rc1_arm64.deb
+```
+
+To install the package:
+
+```
+cd ..
+sudo apt install wiperf_0.0.1_armhf.deb
+```
+
+To remove the package:
+
+```
+sudo apt remove wiperf
 ```
 
 ## Cheatsheet
