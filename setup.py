@@ -42,7 +42,7 @@ setuptools.setup(
         'influxdb==5.3.1', 
         'influxdb_client==1.23.0', 
         'iperf3==0.1.11', 
-        'timeout_decorator=0.5.0'
+        'timeout_decorator==0.5.0'
     ],
     extras_require=extras,
     project_urls={
