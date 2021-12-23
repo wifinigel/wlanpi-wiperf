@@ -1,1 +1,2 @@
 /install/etc/wiperf/* /etc/wiperf
+/extras/* /opt/wiperf
