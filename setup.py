@@ -25,7 +25,7 @@ extras = {
 
 # fmt: off
 
-setuptools.setup(
+setup(
     name=metadata["__title__"],
     version=metadata["__version__"],
     description=metadata["__description__"],
