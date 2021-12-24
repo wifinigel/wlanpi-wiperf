@@ -48,8 +48,8 @@ echo "* Tidying up non-empty folders."
 sudo rm -rf /var/lib/influxdb
 sudo rm /etc/default/influxdb
 
-echo "* Removing cron job."
-crontab -l | grep -v 'wiperf_run.py'  | crontab -
+#echo "* Removing cron job."
+#crontab -l | grep -v 'wiperf_run.py'  | crontab -
 
 # tidy up grafana binaries downloaded
 echo "* Removing downloaded .deb files."
