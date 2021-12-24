@@ -6,5 +6,5 @@ import sys
 from wiperf import wiperf
 
 # run wiperf agent
-sys.ext(wiperf.main())
+sys.exit(wiperf.main())
 
