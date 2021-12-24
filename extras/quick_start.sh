@@ -186,11 +186,26 @@ GRAFANA
  with no errors, you may now switch in to wiperf
  mode.
 
+ Would you like me to switch your WLAN Pi in to
+ wiperf mode (this will cause a reboot?
+
 ##################################################### 
 COMPLETE
+    
+    read -p "Would to like switch to wiperf mode? (y/n) : " yn
+
+    case $yn in
+        y|Y ) echo "Switching...";;
+        *   ) echo "OK, you can switch to wiperf mode later using the front panel buttons. We're all done. Bye!"; exit 0;
+    esac
 
     return
+
+
 }
+echo "(After a reboot, the WAN Pi will come back up in wiperf mode.)"
+/usr/bin/wiperf_switcher
+exit1
 
 
 ########################
