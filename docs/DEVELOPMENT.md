@@ -108,7 +108,7 @@ To install the package:
 
 ```
 cd ..
-sudo apt install wiperf_0.0.1_armhf.deb
+sudo apt install ./wiperf_0.0.1_armhf.deb
 ```
 
 To remove the package:
