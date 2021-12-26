@@ -105,10 +105,10 @@ wiperf_on () {
   #################################################
   echo "Checking for optional Grafana & InfluxDB services."  | tee -a $LOG_FILE
   echo "Checking for Grafana service."  | tee -a $LOG_FILE
-  if systemctl status grafana-server --no-pager; then
+  if systemctl status grafana-server | grep loaded; then
 
     echo "Grafana service found, checking for Influx."  | tee -a $LOG_FILE
-    if systemctl status influxdb --no-pager; then
+    if systemctl status influxdb | grep loaded; then
 
       echo "Influx service found, enabling & starting Grafana & Influx services."
       systemctl enable influxdb  | tee -a $LOG_FILE
