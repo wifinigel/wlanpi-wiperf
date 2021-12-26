@@ -42,7 +42,8 @@ setup(
         'influxdb==5.3.1', 
         'influxdb_client==1.23.0', 
         'iperf3==0.1.11', 
-        'timeout_decorator==0.5.0'
+        'timeout_decorator==0.5.0',
+        'apscheduler'=='3.8.1'
     ],
     extras_require=extras,
     project_urls={
@@ -59,5 +60,6 @@ setup(
     ],
     keywords="wiperf",
     include_package_data=True,
-    entry_points={"console_scripts": ["wiperf=wiperf.__main__:main"]},
+    entry_points={"console_scripts": ["wiperf=wiperf.__main__:main", "wiperf-scheduler.scheduler:main"]
+    },
 )

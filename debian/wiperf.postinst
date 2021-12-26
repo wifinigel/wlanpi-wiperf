@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# "wlanpi-chat-bot" postinst script
+# "wiperf" postinst script
 #
 set -e
 

@@ -3,3 +3,4 @@ influxdb==5.3.1
 influxdb_client==1.23.0 
 iperf3==0.1.11
 timeout_decorator==0.5.0
+apscheduler==3.8.1
