@@ -7,7 +7,7 @@ The following steps are the initial instructions to clone the codebase locally a
 1. Clone repo:
 
 ```
-git clone https://github.com/wifinigel/wiperf2.git && cd wiperf
+git clone https://github.com/wifinigel/wiperf2.git && cd wiperf2
 ```
 
 2. Create virtualenv:
