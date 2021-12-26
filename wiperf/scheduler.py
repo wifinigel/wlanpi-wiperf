@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from apscheduler.schedulers.blocking import BlockingScheduler
-from helpers.config import read_local_config
-from helpers.filelogger import FileLogger
+from wiperf.helpers.config import read_local_config
+from wiperf.helpers.filelogger import FileLogger
 import os
 
 # read in config.ini to get interval & offset
@@ -25,7 +25,7 @@ def call_wiperf():
 def main():
     # add scheduler & start it based on configured interval & offset
     scheduler = BlockingScheduler(timezone="utc")
-    scheduler.add_job(myfunc, 'cron', minute=f"{test_offset}-59/{test_interval}")
+    scheduler.add_job(call_wiperf, 'cron', minute=f"{test_offset}-59/{test_interval}")
     scheduler.start()
 
 
