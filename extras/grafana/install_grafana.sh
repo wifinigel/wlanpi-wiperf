@@ -142,6 +142,9 @@ sudo sed -i "s/database:.*$/database: \"$DB_NAME\"/" $SCRIPT_PATH/influx_datasou
 
 sudo cp $SCRIPT_PATH/influx_datasource.yaml /etc/grafana/provisioning/datasources/
 
+# set home page dashboard
+sudo sed -i 's/^;default_home_dashboard_path =.*$/default_home_dashboard_path = /usr/share/grafana/public/dashboards/01-Probe Summary.json/' /etc/grafana/grafana.ini
+
 echo "* Restarting grafana."
 sudo systemctl restart grafana-server
 
