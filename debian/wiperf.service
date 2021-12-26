@@ -2,7 +2,7 @@
 Description=Wiperf: UX probe
 
 [Service]
-ExecStart=/usr/sbin/wiperf
+ExecStart=/opt/wiperf/bin/wiperf-scheduler
 
 [Install]
 WantedBy=multi-user.target
