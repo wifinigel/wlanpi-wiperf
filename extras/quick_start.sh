@@ -21,6 +21,7 @@ USERNAME=""
 PWD=""
 INTERACE="wlan0"
 SUPPLICANT_FILE=/etc/wiperf/etc/wpa_supplicant/wpa_supplicant.conf
+STATUS_FILE="/etc/wlanpi-state"
 
 get_ssid () {
     read -p "Please enter the SSID of the network : " SSID
