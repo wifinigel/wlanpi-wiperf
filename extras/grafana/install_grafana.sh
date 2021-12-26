@@ -68,10 +68,6 @@ sudo sed -i 's/;admin_password = admin/admin_password = '"$GRAFANA_PWD"'/g' /etc
 # set grafana to listen on port GRAFANA_PORT
 sudo sed -i 's/;http_port = 3000/http_port = '"$GRAFANA_PORT"'/g' /etc/grafana/grafana.ini
 
-# open port on ufw firewall
-echo "* Opening FW port for Grafana."
-sudo ufw insert 1 allow ${GRAFANA_PORT}/tcp comment "Grafana access"
-
 # take care of grafana service
 echo "* Enabling & starting Grafana service."
 sudo systemctl daemon-reload
