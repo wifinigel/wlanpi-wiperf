@@ -199,14 +199,11 @@ COMPLETE
         *   ) echo "OK, you can switch to wiperf mode later using the front panel buttons. We're all done. Bye!"; exit 0;
     esac
 
+    echo "(After a reboot, the WAN Pi will come back up in wiperf mode.)"
+    /usr/bin/wiperf_switcher on
+
     return
-
-
 }
-echo "(After a reboot, the WAN Pi will come back up in wiperf mode.)"
-/usr/bin/wiperf_switcher
-exit1
-
 
 ########################
 # main
