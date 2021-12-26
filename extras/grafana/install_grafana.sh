@@ -161,21 +161,12 @@ sudo sed -i "s/influx_username:.*$/influx_username: $DB_PROBE_USER/" $CFG_FILE_N
 sudo sed -i "s/influx_password:.*$/influx_password: $DB_PROBE_PWD/" $CFG_FILE_NAME
 sudo sed -i "s/influx_database:.*$/influx_database: $DB_NAME/" $CFG_FILE_NAME
 
-# setup a cron job to run the probe
-#echo "* adding crontab job to start polling..."
-#if crontab -l | grep wiperf; then
-#  echo "* Looks like we already have a probe cron job. Nothing added."
-#else 
-  # add probe polling job
-#  TMP_CRON_FILE=cron.tmp
-#  crontab -l > $TMP_CRON_FILE
-#  echo "*/1 * * * * /usr/sbin/wiperf 2>&1 > /var/log/wiperf_runtime.log" >> $TMP_CRON_FILE
-#  crontab $TMP_CRON_FILE
-#  rm $TMP_CRON_FILE
-#fi
-#echo "Cron jobs:"
-#crontab -u wlanpi -l
-#echo "* Done."
+# Stop all Grafana & Influx services, as will be started in switcher script
+echo "Influx service found, stopping & disabling Grafana & Influx services."
+systemctl stop influxdb
+systemctl disable influxdb
+systemctl stop grafana-server
+systemctl disable grafana-server 
 
 echo ""
 echo "* ================================================"
