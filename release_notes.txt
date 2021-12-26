@@ -1,7 +1,7 @@
 v2.5.0
 
 1. Consolidation of wiperf & wiperf-poller packages
-2. Convert project in to python venv-based debian package
+2. Convert project to python venv-based debian package
  
 v2.2.4
 1. Allow use of hostname for mgt platform in config.ini

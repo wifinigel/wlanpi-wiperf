@@ -16,7 +16,6 @@ USERNAME="root"
 CFG_DIR="/etc/wiperf"
 CFG_FILE="$CFG_DIR/config.ini"
 LOG_FILE="/var/log/wiperf_switcher.log"
-ROUTE_FILE="/etc/network/if-up.d/route"
 
 # Check we're root
 if [[ $EUID -ne 0 ]]; then
@@ -117,7 +116,7 @@ wiperf_on () {
     echo "# " | crontab -u $USERNAME -
   fi
 
-  line="${TEST_OFFSET}-59/${TEST_INTERVAL} * * * * /usr/bin/python3 ${HOME_DIR}/wiperf_run.py > /var/log/wiperf_cron.log 2>&1"
+  line="${TEST_OFFSET}-59/${TEST_INTERVAL} * * * * /usr/sbin/wiperf > /var/log/wiperf_runtime.log 2>&1"
   (crontab -u $USERNAME -l; echo "$line" ) | crontab -u $USERNAME -
   LAST_RESULT=$?
   if [ $LAST_RESULT -ne 0 ]; then
@@ -209,7 +208,7 @@ wiperf_off () {
   # 1. Remove crontab entry to stop polling
   ###########################################
   echo "Removing cron job." | tee -a $LOG_FILE
-  crontab -u $USERNAME -l | grep -v 'wiperf_run.py'  | crontab -u $USERNAME -
+  crontab -u $USERNAME -l | grep -v 'wiperf'  | crontab -u $USERNAME -
   LAST_RESULT=$?
   if [ $LAST_RESULT -ne 0 ]; then
     echo "Cron remove failed (exiting)" | tee -a $LOG_FILE 

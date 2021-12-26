@@ -2,21 +2,30 @@
 
 # manual Grafana installation for WLANPi RPi edition
 
+set -e
+
 if [ $EUID -ne 0 ]; then
    echo "This script must be run as root (e.g. use 'sudo')" 
    exit 1
 fi
 
-set -e
-
-# TODO: add check for Internet conenctivity, otherwise this will fail
-# TODO: change to the directory of this script as some action rely on relative paths
-# TODO: fix ufw port issue (have to run with ufw disabled at present)
+# Check we're connected to the Internet
+echo "Checking Internet connection..."
+if ping -q -w 1 -c 1 google.com > /dev/null; then
+  echo "Connected."
+else
+  echo "We do not appear to be connected to the Internet (I can't ping Google.com), exiting."
+  exit 1
+fi
 
 # random pwd generator
 rand_pwd() {
   < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-20};echo;
 }
+
+# Figure out which dir we're in
+SCRIPT_PATH=$(dirname $(readlink -f $0))
+cd $SCRIPT_PATH
 
 # Grafana admin user
 GRAFANA_PORT=4000
@@ -61,9 +70,7 @@ sudo sed -i 's/;http_port = 3000/http_port = '"$GRAFANA_PORT"'/g' /etc/grafana/g
 
 # open port on ufw firewall
 echo "* Opening FW port for Grafana."
-sudo ufw allow in on eth0 to any port ${GRAFANA_PORT}
-sudo ufw allow in on wlan0 to any port ${GRAFANA_PORT}
-sudo ufw allow in on wlan1 to any port ${GRAFANA_PORT}
+sudo ufw insert 1 allow ${GRAFANA_PORT}/tcp comment "Grafana access"
 
 # take care of grafana service
 echo "* Enabling & starting Grafana service."
@@ -132,19 +139,20 @@ sudo systemctl restart influxdb
 echo "* Adding DB as data source to Grafana..."
 
 echo "* Adding DB name & credentials for data source."
-sudo sed -i "s/password:.*$/password: \"$DB_GRAFANA_PWD\"/" influx_datasource.yaml
-sudo sed -i "s/user:.*$/user: \"$DB_GRAFANA_USER\"/" influx_datasource.yaml
-sudo sed -i "s/database:.*$/database: \"$DB_NAME\"/" influx_datasource.yaml
+echo "Script path = $SCRIPT_PATH"
+sudo sed -i "s/password:.*$/password: \"$DB_GRAFANA_PWD\"/" $SCRIPT_PATH/influx_datasource.yaml
+sudo sed -i "s/user:.*$/user: \"$DB_GRAFANA_USER\"/" $SCRIPT_PATH/influx_datasource.yaml
+sudo sed -i "s/database:.*$/database: \"$DB_NAME\"/" $SCRIPT_PATH/influx_datasource.yaml
 
-sudo cp influx_datasource.yaml /etc/grafana/provisioning/datasources/
+sudo cp $SCRIPT_PATH/influx_datasource.yaml /etc/grafana/provisioning/datasources/
 
 echo "* Restarting grafana."
 sudo systemctl restart grafana-server
 
 # add dashboard to Grafana
 echo "* Adding dashboards to Grafana..."
-sudo cp  ../../dashboards/grafana/*.json /usr/share/grafana/public/dashboards/
-sudo cp import_dashboard.yaml /etc/grafana/provisioning/dashboards/
+sudo cp  $SCRIPT_PATH/../../dashboards/grafana/*.json /usr/share/grafana/public/dashboards/
+sudo cp $SCRIPT_PATH/import_dashboard.yaml /etc/grafana/provisioning/dashboards/
 sudo systemctl restart grafana-server
 
 # create probe config.ini file and add influx credentials
@@ -158,20 +166,20 @@ sudo sed -i "s/influx_password:.*$/influx_password: $DB_PROBE_PWD/" $CFG_FILE_NA
 sudo sed -i "s/influx_database:.*$/influx_database: $DB_NAME/" $CFG_FILE_NAME
 
 # setup a cron job to run the probe
-echo "* adding crontab job to start polling..."
-if crontab -l | grep wiperf; then
-  echo "* Looks like we already have a probe cron job. Nothing added."
-else 
+#echo "* adding crontab job to start polling..."
+#if crontab -l | grep wiperf; then
+#  echo "* Looks like we already have a probe cron job. Nothing added."
+#else 
   # add probe polling job
-  TMP_CRON_FILE=cron.tmp
-  crontab -l > $TMP_CRON_FILE
-  echo "*/1 * * * * python3 /opt/wiperf/wiperf_run.py" >> $TMP_CRON_FILE
-  crontab $TMP_CRON_FILE
-  rm $TMP_CRON_FILE
-fi
-echo "Cron jobs:"
-crontab -u wlanpi -l
-echo "* Done."
+#  TMP_CRON_FILE=cron.tmp
+#  crontab -l > $TMP_CRON_FILE
+#  echo "*/1 * * * * /usr/sbin/wiperf 2>&1 > /var/log/wiperf_runtime.log" >> $TMP_CRON_FILE
+#  crontab $TMP_CRON_FILE
+#  rm $TMP_CRON_FILE
+#fi
+#echo "Cron jobs:"
+#crontab -u wlanpi -l
+#echo "* Done."
 
 echo ""
 echo "* ================================================"

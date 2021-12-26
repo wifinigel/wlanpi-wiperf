@@ -1,16 +1,16 @@
-bundle/
-config.ini
+*__pycache__*
 *.pyc
-dist
-wiperf_poller.egg-info/*
-build
-.vscode
-*.egg-info
-wiperf_poller-*
-dashboards/*.zip
-dashboards/grafana/_samples
-mkdocs/site
+.eggs/
+build/
+dist/
+*.log
+venv/
+*.egg-info/
+.pybuild/
+*.build
 *.deb
+*.buildinfo
+*.changes
 
 
 

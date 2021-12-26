@@ -1,0 +1,6 @@
+wiperf.*.debhelper
+wiperf.substvars
+wiperf/
+wiperf-*/
+files
+*.log

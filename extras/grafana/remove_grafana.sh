@@ -9,6 +9,10 @@ fi
 
 GRAFANA_PORT=4000
 
+# Figure out which dir we're in
+SCRIPT_PATH=$(dirname $(readlink -f $0))
+cd $SCRIPT_PATH
+
 echo ""
 echo "* ========================="
 echo "* Removing Grafana..."
@@ -27,9 +31,7 @@ sudo rm -rf /var/log/grafana
 sudo rm -rf /usr/share/grafana
 
 echo "* Restoring firewall port."
-sudo ufw delete allow in on eth0 to any port ${GRAFANA_PORT}
-sudo ufw delete allow in on wlan0 to any port ${GRAFANA_PORT}
-sudo ufw delete allow in on wlan1 to any port ${GRAFANA_PORT}
+sudo ufw delete  allow ${GRAFANA_PORT}/tcp
 
 echo "* Done."
 
@@ -42,13 +44,15 @@ echo "* ========================="
 sudo systemctl stop influxdb
 sudo systemctl disable influxdb
 sudo apt-get purge influxdb -y
+echo "* Tidying up non-empty folders."
 sudo rm -rf /var/lib/influxdb
 sudo rm /etc/default/influxdb
 
-echo "* Removing cron job."
-crontab -l | grep -v 'wiperf_run.py'  | crontab -
+#echo "* Removing cron job."
+#crontab -l | grep -v 'wiperf_run.py'  | crontab -
 
 # tidy up grafana binaries downloaded
-sudo rm grafana*.deb*
+echo "* Removing downloaded .deb files."
+sudo rm $SCRIPT_PATH/grafana*.deb*
 
 echo "* Done."
