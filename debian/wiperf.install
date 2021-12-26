@@ -1,4 +1,4 @@
 /install/etc/wiperf/* /etc/wiperf
 /extras/* /opt/wiperf/extras
 /dashboards/* /opt/wiperf/dashboards
-/wiperf_switcher /opt/wiperf/bin
+/wiperf_switcher /opt/wiperf/wiperf_switcher
