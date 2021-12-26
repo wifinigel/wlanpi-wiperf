@@ -41,7 +41,7 @@ get_peap () {
 }
 
 get_security_type () {
-    read -p "Enter security type : " SECURITY_TYPE
+    read -p "Enter security type (psk or peap): " SECURITY_TYPE
 
     case $SECURITY_TYPE in
         psk|PSK   ) get_psk;;
@@ -97,6 +97,22 @@ PSK
 #####################################################
 
 main () {
+
+  # check that the WLAN Pi is in classic mode
+  PI_STATUS=`cat $STATUS_FILE | grep 'classic'` || true
+  if  [ -z "$PI_STATUS" ]; then
+     cat <<FAIL
+####################################################
+Failed: WLAN Pi is not in classic mode.
+
+Please switch to classic mode and re-run this script
+
+(exiting...)
+#################################################### 
+FAIL
+     exit 1
+  fi
+
     # set up the wireless connection configuration
     clear
     cat <<INTRO
@@ -156,7 +172,7 @@ SEC
 
 It is generally recommended to send data from a
 wiperf probe to a central Grafana server. However, 
-it is possibe to install Grafana locally on the probe
+it is possible to install Grafana locally on the probe
 and report directly from the probe.
 
 If you would like to install Grafana, please 
