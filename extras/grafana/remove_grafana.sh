@@ -22,6 +22,7 @@ echo "* ========================="
 echo "* Stopping services."
 sudo systemctl stop grafana-server
 sudo systemctl disable grafana-server
+sudo systemctl reset-failed grafana-server
 
 echo "* Removing packages & files."
 sudo apt-get purge grafana -y
@@ -44,6 +45,8 @@ echo "* ========================="
 sudo systemctl stop influxdb
 sudo systemctl disable influxdb
 sudo apt-get purge influxdb -y
+sudo systemctl reset-failed influxdb
+sudo rm /usr/lib/systemd/system/influxdb.service
 echo "* Tidying up non-empty folders."
 sudo rm -rf /var/lib/influxdb
 sudo rm /etc/default/influxdb
