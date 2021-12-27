@@ -1,34 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB",
-      "label": "InfluxDB",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.0.5"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "state-timeline",
-      "name": "State timeline",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -38,15 +8,21 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1640590800578,
+  "id": 6,
+  "iteration": 1640603427617,
   "links": [
     {
       "asDropdown": true,
@@ -63,10 +39,10 @@
       "url": ""
     }
   ],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -79,7 +55,10 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -243,7 +222,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -349,7 +331,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -456,7 +441,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -469,7 +453,10 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -582,7 +569,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -750,7 +740,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -763,7 +752,10 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -865,7 +857,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -970,7 +965,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1071,7 +1069,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1173,7 +1174,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 30,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [
     "wlanpi"
@@ -1181,12 +1182,12 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+        },
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Select Probe:",
@@ -1201,15 +1202,14 @@
         "type": "query"
       },
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+        },
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=1)",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "DNS_TARGET1",
         "options": [],
@@ -1221,15 +1221,14 @@
         "type": "query"
       },
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+        },
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=2)",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "DNS_TARGET2",
         "options": [],
@@ -1241,15 +1240,14 @@
         "type": "query"
       },
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+        },
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=1)",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "HTTP_TARGET1",
         "options": [],
@@ -1261,15 +1259,14 @@
         "type": "query"
       },
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+        },
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=2)",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "HTTP_TARGET2",
         "options": [],
@@ -1290,5 +1287,6 @@
   "timezone": "",
   "title": "00 - Connectivity Summary",
   "uid": "7LkIr3Zgk",
-  "version": 22
+  "version": 1,
+  "weekStart": ""
 }
