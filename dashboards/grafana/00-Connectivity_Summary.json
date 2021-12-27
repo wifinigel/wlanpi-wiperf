@@ -33,7 +33,7 @@
         "wlanpi"
       ],
       "targetBlank": false,
-      "title": "WLAN Pi Dashboards",
+      "title": "Dashboards",
       "tooltip": "",
       "type": "dashboards",
       "url": ""
