@@ -54,10 +54,12 @@ echo "* Installing pre-req packages."
 sudo apt-get install -y adduser libfontconfig1
 
 echo "* Downloading Grafana."
-wget https://dl.grafana.com/oss/release/grafana_8.0.5_armhf.deb
+wget https://dl.grafana.com/oss/release/grafana_8.3.3_armhf.deb
+#wget https://dl.grafana.com/oss/release/grafana_8.0.5_armhf.deb
 
 echo "* Installing Grafana."
-sudo dpkg -i grafana_8.0.5_armhf.deb
+#sudo dpkg -i grafana_8.0.5_armhf.deb
+sudo dpkg -i grafana_8.3.3_armhf.deb
 
 # remove requirement to set default admin pwd & change default user/pwd to wlanpi/wlanpi
 echo "* Customizing Grafana."
