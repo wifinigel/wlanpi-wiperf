@@ -10,7 +10,8 @@ Build-Depends: debhelper (>= 11),
                python3-setuptools,
                python3-distutils,
                python3-venv,
-               netcat
+               netcat,
+               cifs-utils
 Standards-Version: 4.6.0
 X-Python3-Version: >= 3.7
 Homepage: https://github.com/wifinigel/wiperf2
