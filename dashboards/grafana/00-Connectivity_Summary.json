@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1640603427617,
+  "iteration": 1640604836215,
   "links": [
     {
       "asDropdown": true,
@@ -56,8 +56,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "",
       "fieldConfig": {
@@ -67,7 +67,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 500,
@@ -111,7 +111,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -119,10 +119,14 @@
       "targets": [
         {
           "alias": "$HTTP_TARGET1 (ms)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -169,10 +173,14 @@
         },
         {
           "alias": "$HTTP_TARGET2 (ms)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -223,8 +231,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "fieldConfig": {
         "defaults": {
@@ -233,7 +241,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 101,
@@ -277,7 +285,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -285,10 +293,14 @@
       "targets": [
         {
           "alias": "Speedtest D/L (mbps)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -332,8 +344,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "fieldConfig": {
         "defaults": {
@@ -342,7 +354,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 10,
@@ -386,7 +398,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -394,10 +406,14 @@
       "targets": [
         {
           "alias": "Speedtest U/L (mbps)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -454,8 +470,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "",
       "fieldConfig": {
@@ -465,7 +481,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 1000,
@@ -517,10 +533,14 @@
       "targets": [
         {
           "alias": "DHCP Renewal (mS)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -570,8 +590,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "fieldConfig": {
         "defaults": {
@@ -580,7 +600,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 999,
@@ -628,7 +648,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -636,10 +656,14 @@
       "targets": [
         {
           "alias": "DNS (ms): $DNS_TARGET1",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -686,10 +710,14 @@
         },
         {
           "alias": "DNS (ms): $DNS_TARGET2",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -753,8 +781,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "",
       "fieldConfig": {
@@ -764,7 +792,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "decimals": 0,
           "mappings": [],
@@ -809,7 +837,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -817,10 +845,14 @@
       "targets": [
         {
           "alias": "Rx Sig (dBm)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -858,8 +890,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "fieldConfig": {
         "defaults": {
@@ -868,7 +900,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "min": 0,
@@ -911,7 +943,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -919,10 +951,14 @@
       "targets": [
         {
           "alias": "Retries",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -966,8 +1002,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "",
       "fieldConfig": {
@@ -977,7 +1013,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 9,
@@ -1021,7 +1057,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -1029,10 +1065,14 @@
       "targets": [
         {
           "alias": "Tx MCS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -1070,8 +1110,8 @@
     },
     {
       "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "",
       "fieldConfig": {
@@ -1081,7 +1121,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 5
+            "lineWidth": 2
           },
           "mappings": [],
           "max": 9,
@@ -1125,7 +1165,7 @@
         },
         "mergeValues": false,
         "rowHeight": 0.9,
-        "showValue": "auto",
+        "showValue": "never",
         "tooltip": {
           "mode": "single"
         }
@@ -1133,10 +1173,14 @@
       "targets": [
         {
           "alias": "Rx MCS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "5m"
               ],
               "type": "time"
             },
@@ -1173,7 +1217,7 @@
       "type": "state-timeline"
     }
   ],
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 34,
   "style": "dark",
   "tags": [
@@ -1182,10 +1226,14 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "wlanpipro",
+          "value": "wlanpipro"
+        },
         "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+          "type": "influxdb",
+          "uid": "P951FEA4DE68E13C5"
         },
         "definition": "select  \"host\", \"network\" from \"wiperf-poll-status\" where time >= now() - 14d",
         "hide": 0,
@@ -1202,10 +1250,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "google.com",
+          "value": "google.com"
+        },
         "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+          "type": "influxdb",
+          "uid": "P951FEA4DE68E13C5"
         },
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=1)",
         "hide": 2,
@@ -1221,10 +1273,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "twitter.com",
+          "value": "twitter.com"
+        },
         "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+          "type": "influxdb",
+          "uid": "P951FEA4DE68E13C5"
         },
         "definition": "SELECT last(\"dns_target\") FROM \"wiperf-dns\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"dns_index\"=2)",
         "hide": 2,
@@ -1240,10 +1296,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "https://google.com",
+          "value": "https://google.com"
+        },
         "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+          "type": "influxdb",
+          "uid": "P951FEA4DE68E13C5"
         },
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=1)",
         "hide": 2,
@@ -1259,10 +1319,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "https://twitter.com",
+          "value": "https://twitter.com"
+        },
         "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+          "type": "influxdb",
+          "uid": "P951FEA4DE68E13C5"
         },
         "definition": "SELECT last(\"http_target\") FROM \"wiperf-http\"  WHERE (\"host\" =~ /^$WLANPi$/) AND (\"http_index\"=2)",
         "hide": 2,
@@ -1287,6 +1351,6 @@
   "timezone": "",
   "title": "00 - Connectivity Summary",
   "uid": "7LkIr3Zgk",
-  "version": 1,
+  "version": 3,
   "weekStart": ""
 }
