@@ -1,2 +1,2 @@
-opt/wiperf/bin/wiperf usr/sbin/wiperf
+opt/wiperf/bin/wiperf /usr/sbin/wiperf
 opt/wiperf/wiperf_switcher /usr/bin/wiperf_switcher
