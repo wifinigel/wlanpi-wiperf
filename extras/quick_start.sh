@@ -217,7 +217,7 @@ COMPLETE
     esac
 
     echo "(After a reboot, the WAN Pi will come back up in wiperf mode.)"
-    /usr/bin/wiperf_switcher on
+    /usr/sbin/wiperf_switcher on
 
     return
 }
