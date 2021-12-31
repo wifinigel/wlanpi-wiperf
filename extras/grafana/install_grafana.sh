@@ -54,10 +54,12 @@ echo "* Installing pre-req packages."
 sudo apt-get install -y adduser libfontconfig1
 
 echo "* Downloading Grafana."
-wget https://dl.grafana.com/oss/release/grafana_8.0.5_armhf.deb
+wget https://dl.grafana.com/oss/release/grafana_8.3.3_armhf.deb
+#wget https://dl.grafana.com/oss/release/grafana_8.0.5_armhf.deb
 
 echo "* Installing Grafana."
-sudo dpkg -i grafana_8.0.5_armhf.deb
+#sudo dpkg -i grafana_8.0.5_armhf.deb
+sudo dpkg -i grafana_8.3.3_armhf.deb
 
 # remove requirement to set default admin pwd & change default user/pwd to wlanpi/wlanpi
 echo "* Customizing Grafana."
@@ -67,10 +69,6 @@ sudo sed -i 's/;admin_password = admin/admin_password = '"$GRAFANA_PWD"'/g' /etc
 
 # set grafana to listen on port GRAFANA_PORT
 sudo sed -i 's/;http_port = 3000/http_port = '"$GRAFANA_PORT"'/g' /etc/grafana/grafana.ini
-
-# open port on ufw firewall
-echo "* Opening FW port for Grafana."
-sudo ufw insert 1 allow ${GRAFANA_PORT}/tcp comment "Grafana access"
 
 # take care of grafana service
 echo "* Enabling & starting Grafana service."
@@ -146,6 +144,9 @@ sudo sed -i "s/database:.*$/database: \"$DB_NAME\"/" $SCRIPT_PATH/influx_datasou
 
 sudo cp $SCRIPT_PATH/influx_datasource.yaml /etc/grafana/provisioning/datasources/
 
+# set home page dashboard
+sudo sed -i 's/^;default_home_dashboard_path =.*$/default_home_dashboard_path = \/usr\/share\/grafana\/public\/dashboards\/00-Connectivity_Summary.json/' /etc/grafana/grafana.ini
+
 echo "* Restarting grafana."
 sudo systemctl restart grafana-server
 
@@ -165,21 +166,12 @@ sudo sed -i "s/influx_username:.*$/influx_username: $DB_PROBE_USER/" $CFG_FILE_N
 sudo sed -i "s/influx_password:.*$/influx_password: $DB_PROBE_PWD/" $CFG_FILE_NAME
 sudo sed -i "s/influx_database:.*$/influx_database: $DB_NAME/" $CFG_FILE_NAME
 
-# setup a cron job to run the probe
-#echo "* adding crontab job to start polling..."
-#if crontab -l | grep wiperf; then
-#  echo "* Looks like we already have a probe cron job. Nothing added."
-#else 
-  # add probe polling job
-#  TMP_CRON_FILE=cron.tmp
-#  crontab -l > $TMP_CRON_FILE
-#  echo "*/1 * * * * /usr/sbin/wiperf 2>&1 > /var/log/wiperf_runtime.log" >> $TMP_CRON_FILE
-#  crontab $TMP_CRON_FILE
-#  rm $TMP_CRON_FILE
-#fi
-#echo "Cron jobs:"
-#crontab -u wlanpi -l
-#echo "* Done."
+# Stop all Grafana & Influx services, as will be started in switcher script
+echo "Influx service found, stopping & disabling Grafana & Influx services."
+systemctl stop influxdb
+systemctl disable influxdb
+systemctl stop grafana-server
+systemctl disable grafana-server 
 
 echo ""
 echo "* ================================================"

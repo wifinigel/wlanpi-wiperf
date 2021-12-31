@@ -71,7 +71,7 @@ if DEBUG or (config_vars['debug'] == 'on'):
 
 # check we are running as root user (sudo)
 if os.geteuid() != 0:
-    file_logger.error("Not running as root. Run using 'sudo' if running on CLI, or add to crontab using 'sudo crontab -e' for normal, schduled operation...exiting.")
+    file_logger.error("Not running as root. Run using 'sudo' if running on CLI...exiting.")
     sys.exit()
 
 # check all our os-level cmds are available

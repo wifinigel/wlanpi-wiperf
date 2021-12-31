@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# "wlanpi-chat-bot" postinst script
+# "wiperf" postinst script
 #
 set -e
 
@@ -12,4 +12,6 @@ set -e
 #   dh_venv_package         Name of the Debian package
 #   dh_venv_install_dir     Root directory for the installed virtualenv
 
+systemctl stop wiperf
+systemctl disable wiperf
 exit 0

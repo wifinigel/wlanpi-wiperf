@@ -16,6 +16,9 @@ USERNAME="root"
 CFG_DIR="/etc/wiperf"
 CFG_FILE="$CFG_DIR/config.ini"
 LOG_FILE="/var/log/wiperf_switcher.log"
+GRAFANA_PORT=4000
+WLAN_INTERFACE=wlan0
+ETH_INTERFACE=eth0
 
 # Check we're root
 if [[ $EUID -ne 0 ]]; then
@@ -32,9 +35,10 @@ fi
 # 2.  Check interface wlan0 is available (wireless NIC plugged in)
 #       a. wlan0 - wireless NIC available
 #       b. eth0 - ethernet port available
-# 3.  Read in test interval & offset from config file
-# 4.  Add crontab entry to perform 5 min polling
-# 5.  Add fw rules to harden eth0 & wlan0
+# 3.  Enable & start the wiperf service
+# 4.  If the InfluxDB & Grafana service exists, assume this is a 
+#     quickstart probe and activate those services
+# 5.  Add fw rules to harden eth0 & wlan0 and allow Grafana UI access
 # 6.  Backup various existing files to allow restoration when wiperf
 #     deactivated
 # 7. Move a number of existing files that need to be replaced
@@ -50,7 +54,7 @@ wiperf_on () {
 
   echo "Starting switch from classic mode to wiperf mode" | tee $LOG_FILE
 
-  # check what state the WLAN Pi is in classic mode
+  # check that the WLAN Pi is in classic mode
   PI_STATUS=`cat $STATUS_FILE | grep 'classic'` || true
   if  [ -z "$PI_STATUS" ]; then
      echo "Failed - WLAN Pi is not in classic mode. (exiting)"  | tee -a $LOG_FILE
@@ -74,7 +78,7 @@ wiperf_on () {
   echo "Checking expected interfaces are available..."  | tee -a $LOG_FILE
   if [ "$MODE" = "ethernet" ]; then
     # Check if eth0 available before we start changing things 
-    TESTING_IF=`ip a | grep eth0` || true
+    TESTING_IF=`ip a | grep ${ETH_INTERFACE}` || true
     if  [ -z "$TESTING_IF" ]; then
       echo "No Eth Interface available! (exiting)" | tee -a $LOG_FILE 
       exit 1
@@ -82,7 +86,7 @@ wiperf_on () {
     echo "Ethernet details: ${TESTING_IF}" | tee -a $LOG_FILE
   else
     # Check if wlan0 available before we start changing things 
-    TESTING_IF=`ip a | grep wlan0` || true
+    TESTING_IF=`ip a | grep ${WLAN_INTERFACE}` || true
     if  [ -z "$TESTING_IF" ]; then
       echo "No WLAN Interface available! (exiting)" | tee -a $LOG_FILE 
       exit 1
@@ -90,44 +94,41 @@ wiperf_on () {
     echo "WLAN details ${TESTING_IF}" | tee -a $LOG_FILE
   fi
 
-  #######################################
-  # 3. Get test interval & offset value
-  #######################################
-  TEST_INTERVAL=`cat ${CFG_FILE} | grep 'test_interval:' | awk -F'[: ]*' '{print $2}'` || true
-  if  [ -z "TEST_INTERVAL" ]; then
-    echo "No test interval in config file (exiting)" | tee -a $LOG_FILE 
-    exit 1
-  fi
-  echo "Test interval from config file: ${TEST_INTERVAL}" | tee -a $LOG_FILE
+  ############################################
+  # 3. Enable & start the wiperf service
+  ############################################
+  systemctl enable wiperf  | tee -a $LOG_FILE
+  systemctl start wiperf  | tee -a $LOG_FILE
 
-  # Get test offset value
-  TEST_OFFSET=`cat ${CFG_FILE} | grep 'test_offset:' | awk -F'[: ]*' '{print $2}'` || true
-  if  [ -z "TEST_OFFSET" ]; then
-    echo "No test offset in config file (exiting)" | tee -a $LOG_FILE 
-    exit 1
-  fi
-  echo "Test offset from config file: ${TEST_OFFSET}" | tee -a $LOG_FILE
+  #################################################
+  # 4. Start Grafana & InfluxDB if both installed 
+  #################################################
+  echo "Checking for optional Grafana & InfluxDB services."  | tee -a $LOG_FILE
+  echo "Checking for Grafana service."  | tee -a $LOG_FILE
+  if systemctl status grafana-server | grep loaded; then
 
-  ########################
-  # 4. Add crontab entry
-  ########################
-  # add crontab if does not exist already
-  if ! [ -e  /var/spool/cron/crontabs/$USERNAME ]; then
-    echo "# " | crontab -u $USERNAME -
-  fi
+    echo "Grafana service found, checking for Influx."  | tee -a $LOG_FILE
+    if systemctl status influxdb | grep loaded; then
 
-  line="${TEST_OFFSET}-59/${TEST_INTERVAL} * * * * /usr/sbin/wiperf > /var/log/wiperf_runtime.log 2>&1"
-  (crontab -u $USERNAME -l; echo "$line" ) | crontab -u $USERNAME -
-  LAST_RESULT=$?
-  if [ $LAST_RESULT -ne 0 ]; then
-    echo "Cron add failed" | tee -a $LOG_FILE 
-    exit 0
-  fi
-  echo "Cron command added: ${line}" | tee -a $LOG_FILE
+      echo "Influx service found, enabling & starting Grafana & Influx services."
+      systemctl enable influxdb  | tee -a $LOG_FILE
+      systemctl start influxdb  | tee -a $LOG_FILE
+      systemctl enable grafana-server  | tee -a $LOG_FILE
+      systemctl start grafana-server  | tee -a $LOG_FILE
+    
+    else
+      echo "InfluxDB not found, not starting Grafana or InfluxDB services" | tee -a $LOG_FILE
+    fi 
+
+  else
+    echo "Optional Grafana and/or Influx services not detected, services not started." | tee -a $LOG_FILE
+  fi 
 
   #################################################################################
   # 5. Harden eth0 & wlan0 by adding fw rules - allow only ssh in on eth0 & wlan0
+  #    and alow Grafana web UI access (if applicable)
   #################################################################################
+  # open ports on ufw firewall
   ufw insert 1 allow in on eth0 to any port ssh
   ufw insert 2 allow in on eth0 to any port http
   ufw insert 3 deny in on eth0
@@ -137,6 +138,10 @@ wiperf_on () {
   ufw insert 7 allow in on wlan1 to any port ssh
   ufw insert 8 allow in on wlan1 to any port http
   ufw insert 9 deny in on wlan1
+
+  if systemctl status grafana-server --no-pager; then
+    ufw insert 1 allow ${GRAFANA_PORT}/tcp comment "Grafana access"
+  fi
 
   ##################################
   # 6. Backup existing config files
@@ -185,12 +190,14 @@ wiperf_on () {
 # Deactivate wiperf:
 #
 # 1. Get the probe mode
-# 2. Remove crontab entry to stop polling
-# 3. Remove fw rules added during mode switch
-# 4. Remove links created during activation
-# 5. Restore config files backed up during activation
-# 6. Remove status file to indicate wiperf no longer active
-# 7. Reboot wlanpi to provide clean restoration of services
+# 2. Disable & stop the wiperf service
+# 3. If the InfluxDB & Grafana service exists, assume this is a 
+#    quickstart probe and stop those services
+# 4. Remove fw rules added during mode switch
+# 5. Remove links created during activation
+# 6. Restore config files backed up during activation
+# 7. Remove status file to indicate wiperf no longer active
+# 8. Reboot wlanpi to provide clean restoration of services
 #
 ###############################################################################
 wiperf_off () {
@@ -204,21 +211,8 @@ wiperf_off () {
 
    echo "Starting switch from wiperf mode to classic mode" | tee -a $LOG_FILE
 
-  ###########################################
-  # 1. Remove crontab entry to stop polling
-  ###########################################
-  echo "Removing cron job." | tee -a $LOG_FILE
-  crontab -u $USERNAME -l | grep -v 'wiperf'  | crontab -u $USERNAME -
-  LAST_RESULT=$?
-  if [ $LAST_RESULT -ne 0 ]; then
-    echo "Cron remove failed (exiting)" | tee -a $LOG_FILE 
-    exit 1
-  fi
-  
-  echo "Cron entry removed" | tee -a $LOG_FILE
-  
   ##################################
-  # 2. Remove eth0 & wlan0 fw rules
+  # 1. Remove eth0 & wlan0 fw rules
   ##################################
   ufw delete allow in on eth0 to any port ssh
   ufw delete allow in on eth0 to any port http
@@ -229,6 +223,40 @@ wiperf_off () {
   ufw delete allow in on wlan1 to any port ssh
   ufw delete allow in on wlan1 to any port http
   ufw delete deny in on wlan1
+
+  if systemctl status grafana-server --no-pager; then
+     ufw delete  allow ${GRAFANA_PORT}/tcp
+  fi
+
+  ############################################
+  # 2. Disable & stop the wiperf service
+  ############################################
+  systemctl stop wiperf  | tee -a $LOG_FILE
+  systemctl disable wiperf  | tee -a $LOG_FILE
+
+  #################################################
+  # 3. Stop Grafana & InfluxDB if both installed 
+  #################################################
+  echo "Checking for optional Grafana & InfluxDB services."  | tee -a $LOG_FILE
+  echo "Checking for Grafana service."  | tee -a $LOG_FILE
+  if systemctl status grafana-server --no-pager; then
+
+    echo "Grafana service found, checking for Influx."  | tee -a $LOG_FILE
+    if systemctl status influxdb --no-pager; then
+
+      echo "Influx service found, stopping & disabling Grafana & Influx services."
+      systemctl stop influxdb  | tee -a $LOG_FILE
+      systemctl disable influxdb  | tee -a $LOG_FILE
+      systemctl stop grafana-server  | tee -a $LOG_FILE
+      systemctl disable grafana-server  | tee -a $LOG_FILE 
+    
+    else
+      echo "InfluxDB not found, not stopping Grafana or InfluxDB services" | tee -a $LOG_FILE
+    fi 
+
+  else
+    echo "Optional Grafana and/or Influx services not detected, services not stopped." | tee -a $LOG_FILE
+  fi 
 
   ##################################
   # 3. Remove links to config files

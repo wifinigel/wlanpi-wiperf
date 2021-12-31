@@ -1,0 +1,8 @@
+[Unit]
+Description=Wiperf: UX probe
+
+[Service]
+ExecStart=/opt/wiperf/bin/wiperf-scheduler
+
+[Install]
+WantedBy=multi-user.target
