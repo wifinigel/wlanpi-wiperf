@@ -157,8 +157,8 @@ sudo cp $SCRIPT_PATH/import_dashboard.yaml /etc/grafana/provisioning/dashboards/
 sudo systemctl restart grafana-server
 
 # create probe config.ini file and add influx credentials
-CFG_FILE_NAME=/etc/wiperf/config.ini
-sudo cp /etc/wiperf/config.default.ini $CFG_FILE_NAME
+CFG_FILE_NAME=/etc/wlanpi-wiperf/config.ini
+sudo cp /etc/wlanpi-wiperf/config.default.ini $CFG_FILE_NAME
 sudo sed -i "s/mgt_if:.*$/mgt_if: lo/" $CFG_FILE_NAME
 sudo sed -i "s/exporter_type:.*$/exporter_type: influxdb/" $CFG_FILE_NAME
 sudo sed -i "s/influx_host:.*$/influx_host: 127.0.0.1/" $CFG_FILE_NAME

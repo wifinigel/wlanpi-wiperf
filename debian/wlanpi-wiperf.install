@@ -1,0 +1,4 @@
+/install/etc/wlanpi-wiperf/* /etc/wlanpi-wiperf
+/extras/* /opt/wlanpi-wiperf/extras
+/dashboards/* /opt/wlanpi-wiperf/dashboards
+/wiperf_switcher /opt/wlanpi-wiperf

@@ -321,7 +321,7 @@ case "$1" in
         status
         ;;
   *)
-        N=/usr/share/wiperf/$NAME
+        N=/usr/sbin/$NAME
         echo "Usage: $N {on|off|status}" >&2
         exit 0
         ;;

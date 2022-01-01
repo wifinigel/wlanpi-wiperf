@@ -12,6 +12,6 @@ set -e
 #   dh_venv_package         Name of the Debian package
 #   dh_venv_install_dir     Root directory for the installed virtualenv
 
-systemctl stop wiperf
-systemctl disable wiperf
+systemctl stop wlanpi-wiperf
+systemctl disable wlanpi-wiperf
 exit 0
