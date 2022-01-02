@@ -1,6 +1,8 @@
-wiperf.*.debhelper
-wiperf.substvars
-wiperf/
+wlanpi-wiperf.*.debhelper
+wlanpi-wiperf.substvars
+wlanpi-wiperf/
 wiperf-*/
 files
 *.log
+.debhelper
+debhelper-build-stamp
