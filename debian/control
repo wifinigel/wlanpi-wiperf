@@ -1,4 +1,4 @@
-Source: wiperf
+Source: wlanpi-wiperf
 Section: contrib/python
 Priority: optional
 Maintainer: Nigel Bowden <wifinigel@gmail.com>
@@ -9,9 +9,7 @@ Build-Depends: debhelper (>= 11),
                python3-dev, 
                python3-setuptools,
                python3-distutils,
-               python3-venv,
-               netcat,
-               cifs-utils
+               python3-venv
 Standards-Version: 4.6.0
 X-Python3-Version: >= 3.7
 Homepage: https://github.com/wifinigel/wiperf2
@@ -19,7 +17,9 @@ Homepage: https://github.com/wifinigel/wiperf2
 Package: wiperf
 Architecture: any
 Pre-Depends: dpkg (>= 1.16.1), python3, python3-distutils, ${misc:Pre-Depends}
-Depends: ${misc:Depends}
+Depends: ${misc:Depends},
+         netcat,
+         cifs-utils
 Description: Chat bot for the WLAN Pi
     .
     This is a distribution of "wiperf" as a self-contained
