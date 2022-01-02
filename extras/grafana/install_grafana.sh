@@ -53,9 +53,11 @@ echo "* ========================="
 echo "* Installing pre-req packages."
 sudo apt-get install -y adduser libfontconfig1
 
+# get architecture type
+ARCH=$(dpkg --print-architecture)
+
 echo "* Downloading Grafana."
-wget https://dl.grafana.com/oss/release/grafana_8.3.3_armhf.deb
-#wget https://dl.grafana.com/oss/release/grafana_8.0.5_armhf.deb
+wget https://dl.grafana.com/oss/release/grafana_8.3.3_${ARCH}.deb
 
 echo "* Installing Grafana."
 #sudo dpkg -i grafana_8.0.5_armhf.deb
@@ -90,8 +92,9 @@ echo "* ========================="
 
 echo "* Getting InfluxDB code...."
 
+CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d"=" -f2)
 sudo wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-echo "deb https://repos.influxdata.com/debian buster stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+echo "deb https://repos.influxdata.com/debian $CODENAME stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt update
 
 echo "* Installing InfluxDB code...."
