@@ -7,7 +7,7 @@ from wiperf.helpers.filelogger import FileLogger
 import os
 
 # read in config.ini to get interval & offset
-config_file = "/etc/wiperf/config.ini"
+config_file = "/etc/wlanpi-wiperf/config.ini"
 log_file = "/var/log/wiperf_agent.log"
 error_log_file = "/tmp/wiperf_err.log"
 

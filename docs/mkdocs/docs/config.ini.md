@@ -9,7 +9,7 @@ The config.ini file controls the operation of the wiperf utility. It has many op
 
 Many options will be fine using the defaults that are supplied with the installed package. However, some will definitely require configuration as they may require values such as IP addresses and port numbers which will vary in each instance where wiperf is used.
 
-The config.ini file is located in the directory : /etc/wiperf
+The config.ini file is located in the directory : /etc/wlanpi-wiperf
 
 Note that an initial sample configuration file is supplied which is named: `config.default.ini`. This file should be copied to `config.ini` and this new file customised with the settings required for your environment. (Note: the `config.default.ini` file is not used by wiperf)
 

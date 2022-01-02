@@ -13,16 +13,16 @@ The configuration tasks break down as follows:
 ## Configuration File
 *Note: the details in this section apply equally to both the WLAN Pi and RPi probe*
 
-The operation of wiperf is configured using the file ```/etc/wiperf/config.ini``` This needs to be edited prior to running the wiperf software.
+The operation of wiperf is configured using the file ```/etc/wlanpi-wiperf/config.ini``` This needs to be edited prior to running the wiperf software.
 
 Network tests are initiated on the WLAN Pi by switching on to wiperf mode. On the RPi, tests are started by configuring a cron job to regularly run the wiperf software (more on this later in this document)
 
-By default, the config.ini file does not exist. However, a default template config file (```/etc/wiperf/config.default.ini```) is supplied that can be used as the template to create the `config.ini` file. Here is the suggested workflow to create the ```config.ini``` file:
+By default, the config.ini file does not exist. However, a default template config file (```/etc/wlanpi-wiperf/config.default.ini```) is supplied that can be used as the template to create the `config.ini` file. Here is the suggested workflow to create the ```config.ini``` file:
 
 Connect to the CLI of the probe (e.g. via SSH), create a copy of the config template file and edit the newly created configuration file:
 
 ```
-cd /etc/wiperf
+cd /etc/wlanpi-wiperf
 # take a copy of the default configuration file
 sudo cp ./config.default.ini ./config.ini
 # edit the config file with the required probe settings (ctrl-x to exit the editor)

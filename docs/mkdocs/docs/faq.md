@@ -12,7 +12,7 @@ Check out the required instructions here: [Probe configuration](https://wifinige
 
 ## When using wiperf on the WLAN Pi, how can I remotely flip between classic and wiper modes via the CLI?
 
-**Warning** : Although it is possible to flip modes remotely (via an SSH session), be aware that you may hit network connectivity issues unless you are very careful. Remember that in classic mode the file `/etc/network/interfaces` and `/etc/wpa_supplicant/wpa_supplicant.conf` are used for network connectivity configuration. In wiperf mode, the files `/etc/wiperf/conf/etc/network/interfaces` and `/etc/wiperf/conf/etc/wpa_supplicant/wpa_supplicant.conf` are used for network connectivity configuration.
+**Warning** : Although it is possible to flip modes remotely (via an SSH session), be aware that you may hit network connectivity issues unless you are very careful. Remember that in classic mode the file `/etc/network/interfaces` and `/etc/wpa_supplicant/wpa_supplicant.conf` are used for network connectivity configuration. In wiperf mode, the files `/etc/wlanpi-wiperf/conf/etc/network/interfaces` and `/etc/wlanpi-wiperf/conf/etc/wpa_supplicant/wpa_supplicant.conf` are used for network connectivity configuration.
 
 To check the current mode of the wiperf, enter the following command:
 
@@ -54,7 +54,7 @@ If you cannot upgrade your version of python using "apt-get", then you will need
 Please see this advanced configuration note: [link](adv_proxy.md)
 
 ## My probe only needs to hit internal network targets. How do I stop the DNS check to google.com?
-Before commencing tests, wiperf will perform a test DNS lookup to ensure that DNS is working OK. By default, the DNS target in ```/etc/wiperf/config.ini``` is set to 'google.com'. If your DNS is internal to your network and does not resolve public Internet targets, you can change the section below to point at an internal lookup target (that will pass a lookup!).
+Before commencing tests, wiperf will perform a test DNS lookup to ensure that DNS is working OK. By default, the DNS target in ```/etc/wlanpi-wiperf/config.ini``` is set to 'google.com'. If your DNS is internal to your network and does not resolve public Internet targets, you can change the section below to point at an internal lookup target (that will pass a lookup!).
 
 ```
 ; connectivity DNS lookup - site used for initial DNS lookup when assessing if DNS working OK

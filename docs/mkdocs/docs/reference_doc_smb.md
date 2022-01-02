@@ -35,7 +35,7 @@ If you get a message advising that `cifs-utils` is already installed, do not wor
 
 ## Configuration
 
-Once the pre-requisite packages are installed, as with all other wiperf tests, please configure the relevant section of the wiperf probe `/etc/wiperf/config.ini` file. Please visit this document for detail information about the configuration options: [config.ini](config.ini.md#smb_test-section))
+Once the pre-requisite packages are installed, as with all other wiperf tests, please configure the relevant section of the wiperf probe `/etc/wlanpi-wiperf/config.ini` file. Please visit this document for detail information about the configuration options: [config.ini](config.ini.md#smb_test-section))
 
 
 ## General SMB Testing (Supplementary Info)
