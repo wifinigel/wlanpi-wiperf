@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 11),
                python3-venv
 Standards-Version: 4.6.0
 X-Python3-Version: >= 3.7
-Homepage: https://github.com/wifinigel/wiperf2
+Homepage: https://github.com/wifinigel/wlanpi-wiperf
 
 Package: wlanpi-wiperf
 Architecture: any
