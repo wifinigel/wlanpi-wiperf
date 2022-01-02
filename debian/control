@@ -1,4 +1,4 @@
-Source: wiperf
+Source: wlanpi-wiperf
 Section: contrib/python
 Priority: optional
 Maintainer: Nigel Bowden <wifinigel@gmail.com>
@@ -16,7 +16,7 @@ Standards-Version: 4.6.0
 X-Python3-Version: >= 3.7
 Homepage: https://github.com/wifinigel/wiperf2
 
-Package: wiperf
+Package: wlanpi-wiperf
 Architecture: any
 Pre-Depends: dpkg (>= 1.16.1), python3, python3-distutils, ${misc:Pre-Depends}
 Depends: ${misc:Depends}
