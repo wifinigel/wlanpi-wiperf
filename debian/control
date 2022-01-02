@@ -14,13 +14,13 @@ Build-Depends: debhelper (>= 11),
                cifs-utils
 Standards-Version: 4.6.0
 X-Python3-Version: >= 3.7
-Homepage: https://github.com/wifinigel/wiperf2
+Homepage: https://github.com/wifinigel/wlanpi-wiperf
 
 Package: wlanpi-wiperf
 Architecture: any
 Pre-Depends: dpkg (>= 1.16.1), python3, python3-distutils, ${misc:Pre-Depends}
 Depends: ${misc:Depends}
-Description: Chat bot for the WLAN Pi
+Description: UX probe for the WLAN Pi
     .
     This is a distribution of "wiperf" as a self-contained
     Python virtualenv wrapped into a Debian package ("omnibus" package,
