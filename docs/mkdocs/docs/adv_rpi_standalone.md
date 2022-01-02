@@ -45,7 +45,7 @@ sudo reboot
 
 ```
 curl -s https://raw.githubusercontent.com/wifinigel/wiperf/main/setup.sh | sudo bash -s install rpi
-sudo cp /etc/wiperf/config.default.ini /etc/wiperf/config.ini
+sudo cp /etc/wlanpi-wiperf/config.default.ini /etc/wlanpi-wiperf/config.ini
 ```
 
 3.Add a cron job as show below:
@@ -119,7 +119,7 @@ exit
 11.Edit the wiperf configuration file to use the loopback interface as the management interface and set the InfluxDB details (use the probe credentials you created for InfluxDB)
 
 ```
-sudo nano /etc/wiperf/config.ini
+sudo nano /etc/wlanpi-wiperf/config.ini
 mgt_if: lo
 exporter_type: influxdb
 influx_host: 127.0.0.1

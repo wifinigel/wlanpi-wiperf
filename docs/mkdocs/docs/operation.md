@@ -11,7 +11,7 @@ It runs a series of tests to gather metrics on network connectivity and performa
 ## Configuration
 To configure the details of the tests to be run on a probe, a local configuration file on the probe needs to be updated. This will provide information to the probe about items such as the required network connectivity (e.g. wireless/ethernet),  IP and credential information for the data server and test details.
 
-The configuration file can be updated by accessing the CLI of the probe (usually via SSH) and editing the file ```/etc/wiperf/config.ini```. 
+The configuration file can be updated by accessing the CLI of the probe (usually via SSH) and editing the file ```/etc/wlanpi-wiperf/config.ini```. 
 
 In addition, configuration of a number of other Linux-OS files (e.g. `/etc/network/interfaces`) is also required to connect the probed to the network under test, and run wiperf tests on a regular basis. More details about the probe configuration can be found on [this page](probe_configure.md).
 

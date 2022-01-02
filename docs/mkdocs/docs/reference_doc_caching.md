@@ -35,7 +35,7 @@ If only subset of results need to be cached, then they can be filtered using the
 
 ## Configuration
 
-This feature is enabled and configured via the usual wiperf configuration file: `/etc/wiperf/config.ini`. The relevant section of the file is shown below:
+This feature is enabled and configured via the usual wiperf configuration file: `/etc/wlanpi-wiperf/config.ini`. The relevant section of the file is shown below:
 
 ```
 ; ====================================================================

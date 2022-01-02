@@ -20,7 +20,7 @@ PSK=""
 USERNAME=""
 PWD=""
 INTERACE="wlan0"
-SUPPLICANT_FILE=/etc/wiperf/etc/wpa_supplicant/wpa_supplicant.conf
+SUPPLICANT_FILE=/etc/wlanpi-wiperf/etc/wpa_supplicant/wpa_supplicant.conf
 STATUS_FILE="/etc/wlanpi-state"
 
 get_ssid () {
@@ -191,7 +191,7 @@ GRAFANA
         *   ) echo "Grafana installation not selected. We're all done. Bye!"; exit 0;
     esac
 
-    cd /opt/wiperf/extras/grafana
+    cd /opt/wlanpi-wiperf/extras/grafana
     ./install_grafana.sh
 
     cat <<COMPLETE

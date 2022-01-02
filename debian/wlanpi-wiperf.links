@@ -1,0 +1,2 @@
+opt/wlanpi-wiperf/bin/wiperf /usr/sbin/wiperf
+opt/wlanpi-wiperf/wiperf_switcher /usr/sbin/wiperf_switcher

@@ -62,7 +62,7 @@ If wiperf is running in wireless mode, when the WLAN Pi is flipped in to wiperf 
 Edit the following file with the configuration and credentials that will be used by the WLAN Pi to join the SSID under test once it is switched in to wiperf mode:
 
 ```
-cd /etc/wiperf/conf/etc/wpa_supplicant
+cd /etc/wlanpi-wiperf/conf/etc/wpa_supplicant
 sudo nano ./wpa_supplicant.conf
 ```
 

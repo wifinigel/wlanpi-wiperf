@@ -11,9 +11,7 @@ NAME=wiperf_switcher
 DESC="Script to switch wiperf mode on/off"
 STATUS_FILE="/etc/wlanpi-state"
 
-HOME_DIR="/opt/wiperf"
-USERNAME="root"
-CFG_DIR="/etc/wiperf"
+CFG_DIR="/etc/wlanpi-wiperf"
 CFG_FILE="$CFG_DIR/config.ini"
 LOG_FILE="/var/log/wiperf_switcher.log"
 GRAFANA_PORT=4000
@@ -95,10 +93,10 @@ wiperf_on () {
   fi
 
   ############################################
-  # 3. Enable & start the wiperf service
+  # 3. Enable & start the wlanpi-wiperf service
   ############################################
-  systemctl enable wiperf  | tee -a $LOG_FILE
-  systemctl start wiperf  | tee -a $LOG_FILE
+  systemctl enable wlanpi-wiperf  | tee -a $LOG_FILE
+  systemctl start wlanpi-wiperf  | tee -a $LOG_FILE
 
   #################################################
   # 4. Start Grafana & InfluxDB if both installed 
@@ -231,8 +229,8 @@ wiperf_off () {
   ############################################
   # 2. Disable & stop the wiperf service
   ############################################
-  systemctl stop wiperf  | tee -a $LOG_FILE
-  systemctl disable wiperf  | tee -a $LOG_FILE
+  systemctl stop wlanpi-wiperf  | tee -a $LOG_FILE
+  systemctl disable wlanpi-wiperf  | tee -a $LOG_FILE
 
   #################################################
   # 3. Stop Grafana & InfluxDB if both installed 
@@ -321,7 +319,7 @@ case "$1" in
         status
         ;;
   *)
-        N=/usr/share/wiperf/$NAME
+        N=/usr/sbin/$NAME
         echo "Usage: $N {on|off|status}" >&2
         exit 0
         ;;

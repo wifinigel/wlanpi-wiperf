@@ -37,7 +37,7 @@ from wiperf.exporters.exportresults import ResultsExporter
 from wiperf.exporters.spoolexporter import SpoolExporter
 
 
-config_file = "/etc/wiperf/config.ini"
+config_file = "/etc/wlanpi-wiperf/config.ini"
 log_file = "/var/log/wiperf_agent.log"
 error_log_file = "/tmp/wiperf_err.log"
 lock_file = '/tmp/wiperf.lock'

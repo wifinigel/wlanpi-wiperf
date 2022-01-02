@@ -75,13 +75,13 @@ To upgrade from a previous release of wiperf, please consult these instructions 
 !!! Attention
     __Ensure that you re-create your config.ini file using the new config.default.ini file supplied during the upgrade__
     
-    Several new options have been added to the `config.ini` configuration file. Use the new `config.default.ini` file in `/etc/wiperf` as a template to create a new copy of `config.ini`. Wiperf will not run if some of the new configuration sections are missing.
+    Several new options have been added to the `config.ini` configuration file. Use the new `config.default.ini` file in `/etc/wlanpi-wiperf` as a template to create a new copy of `config.ini`. Wiperf will not run if some of the new configuration sections are missing.
 
 Copy across your existing settings in to the new copy of `config.ini`. For example:
 
 ```
 # after upgrade
-cd /etc/wiperf
+cd /etc/wlanpi-wiperf
 
 # backup existing config file
 sudo cp config.ini config.ini.orig
