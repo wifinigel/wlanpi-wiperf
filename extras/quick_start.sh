@@ -23,6 +23,14 @@ INTERACE="wlan0"
 SUPPLICANT_FILE=/etc/wlanpi-wiperf/etc/wpa_supplicant/wpa_supplicant.conf
 STATUS_FILE="/etc/wlanpi-state"
 
+# get architecture type (armhf, arm64)
+ARCH=$(dpkg --print-architecture)
+# get codename (buster, bullseye)
+CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d"=" -f2)
+# get machine (armv7l)
+MACHINE=$(uname -m)
+
+
 get_ssid () {
     read -p "Please enter the SSID of the network : " SSID
     return
@@ -94,33 +102,17 @@ PSK
     return
 }
 
-
-#####################################################
-
-main () {
-
-  # check that the WLAN Pi is in classic mode
-  PI_STATUS=`cat $STATUS_FILE | grep 'classic'` || true
-  if  [ -z "$PI_STATUS" ]; then
-     cat <<FAIL
-####################################################
-Failed: WLAN Pi is not in classic mode.
-
-Please switch to classic mode and re-run this script
-
-(exiting...)
-#################################################### 
-FAIL
-     exit 1
-  fi
+config_wireless () {
 
     # set up the wireless connection configuration
     clear
-    cat <<INTRO
+    cat <<WIRELESS_INTRO
 #####################################################
 
-This script will configure your wireless connection
-on this probe for WPA2/PSK or WPA2/PEAP. 
+                Wireless Configuration
+
+We will now configure the wireless connection on this
+probe for WPA2/PSK or WPA2/PEAP. 
 
 Please ensure you have the name of the SSID that 
 you would like the probe to connect to. Also ensure
@@ -128,13 +120,13 @@ that you have credentials for the network (i.e. the
 shared key or user/pwd)
 
 ##################################################### 
-INTRO
+WIRELESS_INTRO
 
     read -p "Do you wish to continue? (y/n) : " yn
 
     if [[ ! $yn =~ [yY] ]]; then
-        echo "OK, exiting."
-        exit 1
+        echo "OK, moving to next task."
+        return
     fi
 
     # Select PSK or PEAP
@@ -142,7 +134,7 @@ INTRO
     cat <<SEC
 #####################################################
 
-            Wireless Configuration
+               Wireless Configuration
 
 Please enter the SSID of the chosen network and choose
 the security method to connect to the network:
@@ -163,8 +155,91 @@ SEC
     esac
 
     echo "Wireless configured."
-    sleep 2
+    return
+} 
 
+
+#####################################################
+
+main () {
+
+  # check that the WLAN Pi is in classic mode
+  PI_STATUS=`cat $STATUS_FILE | grep 'classic'` || true
+  if  [ -z "$PI_STATUS" ]; then
+     cat <<FAIL
+####################################################
+Failed: WLAN Pi is not in classic mode.
+
+Please switch to classic mode and re-run this script
+
+(exiting...)
+#################################################### 
+FAIL
+     exit 1
+  fi
+
+     clear
+     cat <<INTRO
+#####################################################
+
+               Quickstart Configuration
+
+This wizard utility provides the option to configure
+the following areas of the wiperf probe to get you 
+going quickly:
+
+ 1. Wireless configuration
+ 2. Librespeed installation
+ 3. Grafana installation
+
+Each configuration section is optional. We will now
+proceed with the configuration wizard:
+
+##################################################### 
+INTRO
+
+    read -p "Do you wish to continue? (y/n) : " yn
+
+    if [[ ! $yn =~ [yY] ]]; then
+        echo "OK, you can re-run this script at a later time, exiting."
+        exit 1
+    fi
+
+    config_wireless
+
+    sleep 2
+    clear
+    cat <<LIBRESPEED
+#####################################################
+
+               Librespeed Installation
+
+By defaut, wiperf will perform speedtests using the
+Ookla speedtest service. However, you may also use 
+the Librespeed service as an alternative. Librespeed
+does not provide a standardized installation package,
+therefore it has to be installed manually. 
+
+This script can install Librespeed for you to make
+things a little easier.
+
+If you would like to install Librespeed, please 
+indicate below. Note that this process requires that
+the probe is connected to the Internet
+
+##################################################### 
+LIBRESPEED
+
+    read -p "Would to like to install Librespeed on this probe (y/n) : " yn
+
+    case $yn in
+        y|Y ) echo "installing Librespeed..." ;
+              cd /opt/wlanpi-wiperf/extras/librespeed ;
+              ./install_librespeed.sh;;
+        *   ) echo "Librespeed installation not selected. Moving to next task.";;
+    esac
+
+    sleep 2
     clear
     cat <<GRAFANA
 #####################################################
