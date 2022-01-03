@@ -9,7 +9,7 @@ If you like to ensure that the probe never moves from a specific AP, you will ne
 
 When an AP broadcasts an SSID (i.e. the network name), it will use a specific "BSSID" for that network name, which is effectively a unique MAC address for that network name.  To fix the probe to use only one specific AP, you will need to find the BSSID of the network name to which you would like it fixed. If you use a wireless network scanner tool, it will generally show you SSID names and their associated BSSIDs (MAC addresses).
 
-Once you have obtained the BSSID you need, this needs to be added to the `/etc/wpa_supplicant/wpa_supplicant.conf` file for the RPI, or the `/etc/wlanpi-wiperf/conf/etc/wpa_supplicant/wpa_supplicant.conf` file for the WLAN Pi.
+Once you have obtained the BSSID you need, this needs to be added to the `/etc/wlanpi-wiperf/conf/etc/wpa_supplicant/wpa_supplicant.conf` file.
 
 Here is an simple example configuration file that shows the BSSID configuration parameter being used - note the `"bssid"` configuration parameter:
 

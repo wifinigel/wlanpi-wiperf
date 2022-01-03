@@ -10,7 +10,7 @@ In almost every instance, this is due to the fact that the configuration file fo
 
 Check out the required instructions here: [Probe configuration](https://wifinigel.github.io/wiperf/probe_configure/)
 
-## When using wiperf on the WLAN Pi, how can I remotely flip between classic and wiper modes via the CLI?
+## When using wiperf on the WLAN Pi, how can I remotely flip between classic and wiperf modes via the CLI?
 
 **Warning** : Although it is possible to flip modes remotely (via an SSH session), be aware that you may hit network connectivity issues unless you are very careful. Remember that in classic mode the file `/etc/network/interfaces` and `/etc/wpa_supplicant/wpa_supplicant.conf` are used for network connectivity configuration. In wiperf mode, the files `/etc/wlanpi-wiperf/conf/etc/network/interfaces` and `/etc/wlanpi-wiperf/conf/etc/wpa_supplicant/wpa_supplicant.conf` are used for network connectivity configuration.
 
@@ -24,31 +24,24 @@ cat /etc/wlanpi-state
 To check the current mode of wiperf using the wiper switcher script:
 
 ``` 
-sudo /usr/bin/wiperf_switcher status
+sudo /usr/sbin/wiperf_switcher status
 ```
 
 To toggle from classic mode to wiperf:
 
 ```
-sudo /usr/bin/wiperf_switcher on
+sudo /usr/sbin/wiperf_switcher on
 ```
 
 To toggle from wiperf mode to classic:
 
 ```
-sudo /usr/bin/wiperf_switcher off
+sudo /usr/sbin/wiperf_switcher off
 ```
 
 __(Remember, when switching modes, the wlanpi will reset and you will lose comms for around a minute)__
 
 
-
-## Why does installation of wiperf fail with the message "(fail) pip installation of wiperf_poller failed. Exiting." ?
-This is usually due to the fact that the version of python required for wiperf is python version 3.7 or greater. This means that python version 3.7, 3.8...etc are fine but 3.6, 3.5, 3.4, 3.3... etc. will not work.
-
-To check the version of python on your probe, enter the CLI command: ```python -V``` (note the uppercase 'V').
-
-If you cannot upgrade your version of python using "apt-get", then you will need to obtain a more recent image for your probe.
 
 ## How do I use wiperf with a proxy in my network?
 Please see this advanced configuration note: [link](adv_proxy.md)
@@ -65,7 +58,7 @@ connectivity_lookup: google.com
 Please see the details in this page: [link](probe_upgrade.md)
 
 ## How do I change the hostname of my probe?
-Please see the details in this help page: [link](probe_prepare.md)
+Please see the details in this help page: [link](probe_platform.md)
 
 ## Why are MCS & Rx Phy rates missing from my reports?
 In several dashboard reports, the reported MCS values & Rx Phy rate may be blank or permanently zero. This is because these values simply are not reported by many NICs. Sorry, there's not much I can do about this as I don't write the wireless NIC drivers.
@@ -81,12 +74,12 @@ Note that this is a last ditch mechanism. Wiperf will also try bouncing network 
 
 If you observe your probe rebooting on a regular basis (e.g. a couple of times a hour), then check its logs as it is very unhappy about something.
 
-## How Can I Harden the Probe Security?
-Please see this note for some suggestions for hardening the probe: [link](adv_secure.md)
+## How can I harden the probe security?
+Please see this note about existing security measures applied to the WLAN Pi in wiperf mode: [link](adv_secure.md)
 
 
-## Where do I get the dashboard reports for Splunk and Grafana?
-Use SFTP/SCP and pull the xml files in ```/usr/share/wiperf/dashboards``` from your probe. Or, visit the wiperf GitHub site [here](https://github.com/wifinigel/wiperf/tree/main/dashboards){target=_blank}
+## Where do I get the dashboard reports Grafana?
+Use SFTP/SCP and pull the xml files in ```/opt/wlanpi-wiperf/dashboards/grafana``` from your probe. Or, visit the wiperf GitHub site [here](https://github.com/wlanpi/wlanpi-wiperf/tree/main/dashboards){target=_blank}
 
 ## How can I fix my probe to only connect to one specific wireless access point for testing?
 

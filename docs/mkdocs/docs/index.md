@@ -2,7 +2,7 @@ Title: Wiperf V2.5 Documentation
 Authors: Nigel Bowden
 
 # wiperf V2.5: An Open Source UX Performance Probe
-![wiperf_logo](images/wiperf_logo.png)
+![wiperf_logo](images/wiperf_logo.png){ align=right }
 
 Wiperf is a utility that is included in the [WLAN Pi](https://wlan-pi.github.io/wlanpi-documentation/) software distribution. It allows the WLAN Pi to act as a network probe that runs a series of  network performance tests. It is primarily intended to provide an indication of the end-user experience on a wireless network, but may also be used as an ethernet-connected probe.
 

@@ -77,7 +77,7 @@ mgt_if: wlan0
 ```
 ### Data Server Parameters
 Wiperf can send results data to Splunk or InfluxDB (v1.x) data collectors through an exporter module for each collector type. The relevant authentication parameters need to be set for the collector in-use in the following sections 
-(*note that corresponding authentication parameters also need to be configured on the data collector platform also before sending results data - see here for more info: [Splunk](splunk_configure.md) / [InfluxDB](influx_configure.md)*)
+(*note that corresponding authentication parameters also need to be configured on the data collector platform also before sending results data - see here for more info:[InfluxDB](influx_configure.md)*)
 
 In summary, the workflow to configure the data server parameters in the probe configuration file is:
 

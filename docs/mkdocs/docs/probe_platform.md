@@ -3,28 +3,76 @@ Authors: Nigel Bowden
 
 # Probe Platform
 
-Wiperf has been primarily designed to work on the NEO2 version of the WLAN Pi platform and the Raspberry Pi platforms.
-
-## WLAN Pi
-
-![WLAN Pi](images/wlanpi.png)
-
-Wiperf is baked in to the image of the WLAN Pi. It can be activated by switching in to wiperf mode on the WLAN Pi. Find out more details at the official documentation site for the WLAN Pi: [https://wlan-pi.github.io/wlanpi-documentation/](https://wlan-pi.github.io/wlanpi-documentation/){target=_blank}
+Wiperf has been primarily designed to work on the Pro version of the WLAN Pi platform. It is baked in to the image of the WLAN Pi and can be activated by switching in to wiperf mode on the WLAN Pi. 
 
 ## Raspberry Pi
 
 ![RPi](images/rpi.png)
 
-Wiperf on the RPi has been tested on models that have an internal Wi-Fi NIC: 3b+, 3a+ and 4. It will likely work on most that have an internal NIC, but I don't have the resources or time to try them all. 
+Wiperf is intended to run on other platforms that support the Raspberry Pi OS. This should include off-the-shelf RPI4 boards. The full details of how wiperf will be installed and used on the RPI platform will be announced in due course.
 
-Earlier versions of the RPi that do not have a an internal NIC will need some type of USB wireless adapter, but as support for external wireless NICs is very poor and many tend to be 2.4GHz only, I've not explored this area in detail. 
+# Probe Preparation
 
-Unfortunately, getting a 2 stream 802.11ac NIC going seems very difficult due to the lack of drivers available, so the internal, single stream NIC is often best we can generally do. However, the situation does seem to be improving with more recent kernels, so test out a few NICs and see how you do. 
+The wiperf probe needs to have a few pre-requisite activities completed prior to using the WLAN Pi as a Wiperf probe. 
 
-Using a single stream NIC has its limitations as speed performance is very limited, but as the main aim of wiperf is to monitor user experience (particularly changes in that experience), then it's good enough for many use-cases where we are mainly interested in changes in relation to the usual baseline.
+## Software Image
+It is always best to ensure you have the latest version of the Wiperf image installed on your WLAN Pi. To check for software updates, run the following CLI update command while the WLAN Pi is in "classic" mode and is connected to the Internet:
 
-__Note: __*Please use an RPi platform that is used only as a dedicated wiperf probe. Please do not install additional packages other than those recommended. Also, please use only one active Ethernet interface and one active wireless interface (as shown in the notes on this site). Multiple additional live adapters will likely cause operational issues.* 
+```
+sudo apt update
+sudo apt upgrade wlanpi-wiperf
+```
 
-## Other Platforms
+## Probe CLI Access
+To perform some of the required probe configuration activities, CLI access to the WLAN Pi is needed. The easiest way to achieve this is to SSH to the probe over an OTG connection, or plug the WLAN Pi in to an ethernet network port and SSH to its DHCP assigned IP address (shown on the front panel). Visit the WLAN Pi documentation site for more details of how to gain access to the WLAN Pi: [link](https://wlan-pi.github.io/wlanpi-documentation/){target=_blank}
 
-In essence, wiperf is a series of python scripts & modules, together with a few supporting bash scripts to glue a few things together. It will likely work on other Debian-type systems, so it's worth giving it a go on other systems if you fancy tinkering around on another platform. When using the install script, install using the 'rpi' option. Let me know if you get it going on other platforms, as it will be interesting to share your experiences.
+## Hostname Configuration
+By default, the hostname of your WLAN Pi is : `wlanpi`. It is strongly advised to change its hostname if you have several probes reporting in to the same data server. If all use the same hostname, there will be no way of distinguishing data between devices. 
+
+*(Note that if you decide to skip this step and subsequently change the hostname, historical data from the probe will not be associated with the data sent with the new hostname in your data server)*
+
+If you'd like to change to a more meaningful hostname, then you will need to SSH to your WLAN Pi and update the `/etc/hostname` and `/etc/hosts` files, followed by a reboot of the WLAN Pi:
+
+Edit the /etc/hostname file using the command:
+
+```
+sudo nano /etc/hostname
+```
+
+There is a single line that says 'wlanpi'. Change this to your required hostname. Then hit Ctrl-X  and "y" to save your changes.
+
+Next, edit the /etc/hosts file:
+
+```
+sudo nano /etc/hosts
+```
+Change each instance of 'wlanpi' to the new hostname (there are usually two instances). Then hit Ctrl-X  and "y" to save your changes.
+
+Finally, reboot your WLAN Pi:
+
+```
+sudo reboot
+```
+## Network Connectivity
+
+### Ethernet
+If the probe is to be connected to Ethernet only, then there is no additional configuration required. By default, if a switch port that can supply a DHCP address is used, the probe will have the required network connectivity.
+
+### Wireless Configuration (wpa_supplicant.conf)
+If wiperf is running in wireless mode, when the WLAN Pi is flipped in to wiperf mode, it will need to join the SSID under test to run the configured network tests. We need to provide a configuration (that is only used in wiperf mode) to allow the WLAN Pi to join a WLAN.
+
+Edit the following file with the configuration and credentials that will be used by the WLAN Pi to join the SSID under test once it is switched in to wiperf mode:
+
+```
+cd /etc/wlanpi-wiperf/conf/etc/wpa_supplicant
+sudo nano ./wpa_supplicant.conf
+```
+
+There are a number of sample configurations included in the default file provided (PSK, PEAP & Open auth). Uncomment the required section and add in the correct SSID & authentication details. (For EAP-TLS, it's time to check-out Google as I've not had opportunity to figure that scenario out...)
+
+(__Note:__ *This wireless configuration is only used when the WLAN Pi is flipped in to wiperf mode, not for standard (classic mode) wireless connectivity*)
+
+!!! Note
+    If you'd like to fix the AP that the probe associates with, check out [this note](adv_fixed_bssid.md)
+
+At this point, the pre-requisite activities for the WLAN Pi are complete. Next, move on to the [probe configuration](probe_configure.md).

@@ -2,11 +2,10 @@ Title: What's New in version 2.5
 Authors: Nigel Bowden
 
 # What's New in version 2.5
-<div style="float: right;">
 ![wiperf_logo](images/wiperf_logo.png)
-</div>
+
 <span style="font-size: small; color:gray">*03rd January 2022 - Author: Nigel Bowden*</span><br><br>
-Version 2.5 marks a significant step in the evolution of the wiper UX utility. In this release, the entire codebase has been moved under the unmbrella of the WLAN Pi project. 
+Version 2.5 marks a significant step in the evolution of the Wiperf UX utility. In this release, the entire codebase has been moved under the unmbrella of the WLAN Pi project. 
 
 The WLAN Pi platform wil be the primary platform upon which wiperf will be supported going forwards, though support for running wiperf on a vanilla Raspbery Pi platform will be supported as far as it practically possible.
 

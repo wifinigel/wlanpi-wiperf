@@ -2,7 +2,8 @@ Title: Influx Configuration
 Authors: Nigel Bowden
 
 # Influx Configuration
-<div style="float: right;">![influx_logo](images/influx_logo.png)</div>Now that we have the InfluxDB software installed, the next step is to create a database in which data from our wiperf probes will be stored.
+![influx_logo](images/influx_logo.png){ align=right }
+Now that we have the InfluxDB software installed, the next step is to create a database in which data from our wiperf probes will be stored.
 
 To create the database, we need to execute a series of commands on the CLI of the Influx DB server. Follow the following steps to create the required database:
 
@@ -31,10 +32,10 @@ At this point, the InfluxDB service is ready to receive data from a probe. If yo
 
 If you believe you have a probe that has successfully sent data, you can check the database contents using the following commands in the InfluxDB shell:
 
- - ```USE wiperf```
- - ```SHOW SERIES```
- - ```SELECT * FROM "wiperf-speedtest"```
- - ```SHOW FIELD KEYS ON "wiperf" FROM "wiperf-speedtest"```
+ - `USE wiperf`
+ - `SHOW SERIES`
+ - `SELECT * FROM "wiperf-speedtest"`
+ - `SHOW FIELD KEYS ON "wiperf" FROM "wiperf-speedtest"`
 
 To find out more details, please checkout the official getting started guide: [https://docs.influxdata.com/influxdb/v1.8/introduction/get-started/](https://docs.influxdata.com/influxdb/v1.8/introduction/get-started/){target=_blank}
 
