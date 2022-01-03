@@ -1,7 +1,7 @@
-site_name: Wiperf V2 Documentation
+site_name: Wiperf V2.5 Documentation
 nav:
     - Home: index.md
-    - What's New in V2.2: whats_new_v2.2.md
+    - What's New in V2.5: whats_new_v2.5.md
     - Quickstart: quickstart.md
     - Operation Overview: operation.md
     - Probe:
@@ -27,6 +27,7 @@ nav:
     - Blog Posts:
             - blog_neo3.md
             - whats_new_v2.1.md
+            - whats_new_v2.2.md
     - Troubleshooting: troubleshooting.md
     - Advanced Configuration:
         - adv_proxy.md
