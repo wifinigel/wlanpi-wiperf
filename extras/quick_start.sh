@@ -23,31 +23,39 @@ INTERACE="wlan0"
 SUPPLICANT_FILE=/etc/wlanpi-wiperf/etc/wpa_supplicant/wpa_supplicant.conf
 STATUS_FILE="/etc/wlanpi-state"
 
+# get architecture type (armhf, arm64)
+ARCH=$(dpkg --print-architecture)
+# get codename (buster, bullseye)
+CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d"=" -f2)
+# get machine (armv7l)
+MACHINE=$(uname -m)
+
+
 get_ssid () {
-    read -p "Please enter the SSID of the network : " SSID
+    read -p "* Please enter the SSID of the network : " SSID
     return
 }
 
 get_psk () {
     # prompt for psk 
-    read -p "Enter the network key : " PSK
+    read -p "* Enter the network key : " PSK
     return
 }
 
 get_peap () {
     # prompt for username/pwd
-    read -p "Enter the PEAP userame : " USERNAME
-    read -p "Enter the PEAP password : " PWD
+    read -p "* Enter the PEAP userame : " USERNAME
+    read -p "* Enter the PEAP password : " PWD
     return
 }
 
 get_security_type () {
-    read -p "Enter security type (psk or peap): " SECURITY_TYPE
+    read -p "* Enter security type (psk or peap): " SECURITY_TYPE
 
     case $SECURITY_TYPE in
         psk|PSK   ) get_psk;;
         peap|PEAP ) get_peap;;
-        *         ) echo "Option ($SECURITY_TYPE) not recognised. Exiting."; exit 1;
+        *         ) echo "* Option ($SECURITY_TYPE) not recognised. Exiting."; exit 1;
     esac
 
     return
@@ -94,6 +102,62 @@ PSK
     return
 }
 
+config_wireless () {
+
+    # set up the wireless connection configuration
+    clear
+    cat <<WIRELESS_INTRO
+#####################################################
+
+                Wireless Configuration
+
+We will now configure the wireless connection on this
+probe for WPA2/PSK or WPA2/PEAP. 
+
+Please ensure you have the name of the SSID that 
+you would like the probe to connect to. Also ensure
+that you have credentials for the network (i.e. the
+shared key or user/pwd)
+
+##################################################### 
+WIRELESS_INTRO
+
+    read -p "* Do you wish to configure the wireless connection? (y/n) : " yn
+
+    if [[ ! $yn =~ [yY] ]]; then
+        echo "* OK, moving to next task."
+        return
+    fi
+
+    # Select PSK or PEAP
+    clear
+    cat <<SEC
+#####################################################
+
+               Wireless Configuration
+
+Please enter the SSID of the chosen network and choose
+the security method to connect to the network:
+
+    WPA/PSK = PSK
+    WPA/PEAP = PEAP
+
+##################################################### 
+SEC
+
+    get_ssid
+    get_security_type
+
+    case $SECURITY_TYPE in
+        psk|PSK   ) config_psk;;
+        peap|PEAP ) config_peap;;
+        *         ) echo "* Option ($SECURITY_TYPE) not recognised. Exiting."; exit 1;
+    esac
+
+    echo "Wireless configured."
+    return
+} 
+
 
 #####################################################
 
@@ -114,57 +178,68 @@ FAIL
      exit 1
   fi
 
-    # set up the wireless connection configuration
-    clear
-    cat <<INTRO
+     clear
+     cat <<INTRO
 #####################################################
 
-This script will configure your wireless connection
-on this probe for WPA2/PSK or WPA2/PEAP. 
+               Quickstart Configuration
 
-Please ensure you have the name of the SSID that 
-you would like the probe to connect to. Also ensure
-that you have credentials for the network (i.e. the
-shared key or user/pwd)
+This wizard utility provides the option to configure
+the following areas of the wiperf probe to get you 
+going quickly:
+
+ 1. Wireless configuration
+ 2. Librespeed installation
+ 3. Grafana installation
+
+Each configuration section is optional. We will now
+proceed with the configuration wizard:
 
 ##################################################### 
 INTRO
 
-    read -p "Do you wish to continue? (y/n) : " yn
+    read -p "* Do you wish to continue with this wizard? (y/n) : " yn
 
     if [[ ! $yn =~ [yY] ]]; then
-        echo "OK, exiting."
+        echo "* OK, you can re-run this script at a later time, exiting."
         exit 1
     fi
 
-    # Select PSK or PEAP
+    config_wireless
+
+    sleep 2
     clear
-    cat <<SEC
+    cat <<LIBRESPEED
 #####################################################
 
-            Wireless Configuration
+               Librespeed Installation
 
-Please enter the SSID of the chosen network and choose
-the security method to connect to the network:
+By defaut, wiperf will perform speedtests using the
+Ookla speedtest service. However, you may also use 
+the Librespeed service as an alternative. Librespeed
+does not provide a standardized installation package,
+therefore it has to be installed manually. 
 
-    WPA/PSK = PSK
-    WPA/PEAP = PEAP
+This script can install Librespeed for you to make
+things a little easier.
+
+If you would like to install Librespeed, please 
+indicate below. Note that this process requires that
+the probe is connected to the Internet
 
 ##################################################### 
-SEC
+LIBRESPEED
 
-    get_ssid
-    get_security_type
+    read -p "Would to like to install Librespeed on this probe (y/n) : " yn
 
-    case $SECURITY_TYPE in
-        psk|PSK   ) config_psk;;
-        peap|PEAP ) config_peap;;
-        *         ) echo "Option ($SECURITY_TYPE) not recognised. Exiting."; exit 1;
+    case $yn in
+        y|Y ) echo "* installing Librespeed..." ;
+              cd /opt/wlanpi-wiperf/extras/librespeed ;
+              ./install_librespeed.sh;;
+        *   ) echo "* Librespeed installation not selected. Moving to next task.";;
     esac
 
-    echo "Wireless configured."
     sleep 2
-
     clear
     cat <<GRAFANA
 #####################################################
@@ -174,7 +249,7 @@ SEC
 It is generally recommended to send data from a
 wiperf probe to a central Grafana server. However, 
 it is possible to install Grafana locally on the probe
-and report directly from the probe.
+and views reports directly on the probe itself.
 
 If you would like to install Grafana, please 
 indicate below. Note that this process will take
@@ -184,11 +259,11 @@ is connected to the Internet
 ##################################################### 
 GRAFANA
 
-    read -p "Would to like to install Grafana on this probe (y/n) : " yn
+    read -p "* Would to like to install Grafana on this probe (y/n) : " yn
 
     case $yn in
-        y|Y ) echo "installing Grafana...";;
-        *   ) echo "Grafana installation not selected. We're all done. Bye!"; exit 0;
+        y|Y ) echo "* installing Grafana...";;
+        *   ) echo "* Grafana installation not selected. We're all done. Bye!"; exit 0;
     esac
 
     cd /opt/wlanpi-wiperf/extras/grafana
@@ -209,14 +284,14 @@ GRAFANA
 ##################################################### 
 COMPLETE
     
-    read -p "Would to like switch to wiperf mode? (y/n) : " yn
+    read -p "* Would to like switch to wiperf mode? (y/n) : " yn
 
     case $yn in
-        y|Y ) echo "Switching...";;
-        *   ) echo "OK, you can switch to wiperf mode later using the front panel buttons. We're all done. Bye!"; exit 0;
+        y|Y ) echo "* Switching...";;
+        *   ) echo "* OK, you can switch to wiperf mode later using the front panel buttons. We're all done. Bye!"; exit 0;
     esac
 
-    echo "(After a reboot, the WAN Pi will come back up in wiperf mode.)"
+    echo "* (After a reboot, the WAN Pi will come back up in wiperf mode.)"
     /usr/sbin/wiperf_switcher on
 
     return
