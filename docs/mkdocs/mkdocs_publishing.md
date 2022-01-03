@@ -4,36 +4,36 @@ Wiperf documentation is created and published using MKDocs. More info at : https
 
 The docs are contained in a GitHub repo and are then built in a GitHub project page. The current published site can be found at: https://wlan-pi.github.io/wlanpi-documentation/
 
-The site can be built locally on your machine and pre-viewed using the 'mkdocs serve' command before pushing to GitHub.
+If developing documentation, the site can be built locally on your machine and pre-viewed using the 'mkdocs serve' command before pushing to GitHub.
 
 Once edits have been completed, they can be built and pushed to the GitHub project page created to host the final pages. See the following doc for more info: https://www.mkdocs.org/user-guide/deploying-your-docs/
 
 Workflow:
-```
+
 1. Setup your environment
-    a. Install Python 3 on your local machine (https://www.python.org/downloads/)
-    b. Upgrade pip: python -m pip install --upgrade pip
-    c. Install MKDocs: pip install mkdocs
-    d. Install 'Material' theme: pip install mkdocs-material
-    e. Install MKDocs revision date plugin: pip install mkdocs-git-revision-date-localized-plugin
-    f. Install Git if you don't already have it: https://git-scm.com/downloads
-    g. Change in to a directory where you wish to clone the repo
-    h. Clone the repo to allow you to work on it locally: https://github.com/WLAN-Pi/wlanpi-documentation.git
+    1. Install Python 3 on your local machine (https://www.python.org/downloads/)
+    2. Upgrade pip: python -m pip install --upgrade pip
+    3. Install MKDocs: pip install mkdocs
+    4. Install 'Material' theme: pip install mkdocs-material
+    5. Install MKDocs revision date plugin: pip install mkdocs-git-revision-date-localized-plugin
+    6. Install Git if you don't already have it: https://git-scm.com/downloads
+    7. Change in to a directory where you wish to clone the repo
+    8. Clone the repo to allow you to work on it locally: https://github.com/WLAN-Pi/wlanpi-documentation.git
 2. Creating or editing docs
-    a. Change in to the cloned directory and verify project files exist
-    b. Edit files as per the MKDocs guide: https://www.mkdocs.org/user-guide/writing-your-docs/#writing-with-markdown
-    c. Run the local mkdocs server: mkdocs serve  --dev-addr=0.0.0.0:8081
-    c. Once editing is complete, build the site : mkdocs build
-    d. Commit & push files from local Git instance (git add, git commit -m, git push)
-    e. Push the new docs to the GitHub project page using: mkdocs gh-deploy (see https://www.mkdocs.org/user-guide/deploying-your-docs/)
-    f. Check updates all look good at : https://wifinigel.github.io/wiperf/ 
-```
+    1. Change in to the cloned directory and verify project files exist
+    2. Edit files as per the MKDocs guide: https://www.mkdocs.org/user-guide/writing-your-docs/#writing-with-markdown
+    3. Run the local mkdocs server: mkdocs serve  --dev-addr=0.0.0.0:8081
+    4. Once editing is complete, build the site : mkdocs build
+    5. Commit & push files from local Git instance (git add, git commit -m, git push)
+    6. Push the new docs to the GitHub project page using: mkdocs gh-deploy (see https://www.mkdocs.org/user-guide/deploying-your-docs/)
+    7. Check updates all look good at : https://wifinigel.github.io/wiperf/ 
 
-Here is an excellent guide to using the MKDocs markup: https://github.com/PegaSysEng/doc.pantheon/blob/master/MKDOCS-MARKDOWN-GUIDE.md
+# References
 
-The CSS styling file was borrowed from the Pi-Hole project: https://github.com/pi-hole/docs
+- Here is an excellent guide to using the MKDocs markup: https://github.com/PegaSysEng/doc.pantheon/blob/master/MKDOCS-MARKDOWN-GUIDE.md
+- The CSS styling file was borrowed from the Pi-Hole project: https://github.com/pi-hole/docs
 
-## Brief Markup Cheatsheet
+# Brief Markup Cheatsheet
 
 ```
 Headings:
