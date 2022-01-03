@@ -122,7 +122,7 @@ shared key or user/pwd)
 ##################################################### 
 WIRELESS_INTRO
 
-    read -p "Do you wish to continue? (y/n) : " yn
+    read -p "Do you wish to configure the wireless connection? (y/n) : " yn
 
     if [[ ! $yn =~ [yY] ]]; then
         echo "OK, moving to next task."
@@ -198,7 +198,7 @@ proceed with the configuration wizard:
 ##################################################### 
 INTRO
 
-    read -p "Do you wish to continue? (y/n) : " yn
+    read -p "Do you wish to continue with this wizard? (y/n) : " yn
 
     if [[ ! $yn =~ [yY] ]]; then
         echo "OK, you can re-run this script at a later time, exiting."
