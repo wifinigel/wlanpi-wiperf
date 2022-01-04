@@ -42,6 +42,7 @@ nav:
             - db_health.md
     - Contact: https://github.com/wifinigel/wiperf/discussions
     - About: about.md
+    - Credits: credits.md
 theme:
     name: 'material'
     custom_dir: overrides
