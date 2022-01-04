@@ -20,7 +20,7 @@ Previous releases of Wiperf have provided support for both Splunk and InfluxDB/G
 
 Full support will be retained for InfluxDB/Grafana. The reason for this move is that the support and development burden for two reporting platforms provides too much of an overhead and impacts progress of developing the overall Wiperf project. As mentioned previously, data may still be exported to Splunk using the Wiperf exporter, but it will be up to end users to develop their own reporting dashboards. 
 
-(__Note: Documentation for releases v2.2 and before may still be accessed at : https://wifinigel.github.io/wiperf/. This contains details of Splunk templates and installation for those who wish to continue to use Splunk__)
+(_Note: Documentation for releases v2.2 and before may still be accessed at : [https://wifinigel.github.io/wiperf/](https://wifinigel.github.io/wiperf). This contains details of Splunk templates and installation for those who wish to continue to use Splunk_)
 
 ## RPi Support
 Wiperf has always been supported on both the WLAN Pi and RPi platforms. As with the reporting platforms mentioned above, maintaining support for both platforms has been a significant burden that has impeded development of the project. With the move of the WLAN Pi platform to a distribution based upon Raspberry OS, the intention is to support both the WLAN Pi and RPI from a common package that will run on both platforms.
@@ -28,4 +28,12 @@ Wiperf has always been supported on both the WLAN Pi and RPi platforms. As with 
 This new release of Wiperf initially supports only the new WLAN Pi platform, but the intention is to release an updated package that will run on both the WLAN Pi and RPi. Details will be released in the near future. 
 
 ## Quickstart Support
+Getting up and going with Wiperf can be quite tricky if you aren't familiar with Linux and setting up a separate server to act as a data collection server. Therefore, starting with v2.5, a quickstart script is provided that:
+
+- Configures the wireless interface of the probe
+- Applies a basic probe configuration to get you started with testing
+- Installs InfluxDB and Grafana on to the WLAN Pi to provide an on-board reporting server
+- Configures Grafana with a set of dashboard reports to start reporting on network health
+
+The script takes less than 5 minutes to get a fully functioning Wiperf probe up and running. See the [quickstart](quickstart.md) document for full details.
 

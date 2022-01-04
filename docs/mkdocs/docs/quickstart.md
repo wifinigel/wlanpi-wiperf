@@ -2,43 +2,43 @@ Title: Quickstart
 Authors: Nigel Bowden
 
 # Quickstart Guide
-<div style="float: right;">
-![wiperf_logo](images/wiperf_logo.png)
-</div>
-Wiperf is a utility that can be installed on a [WLAN Pi](https://wlan-pi.github.io/wlanpi-documentation/) or a Raspberry Pi to act as a network probe that runs a series of  network performance tests. It is primarily intended to provide an indication of the end-user experience on a wireless network, but may also be used as an ethernet-connected probe.
+![wiperf_logo](images/wiperf_logo.png){ align=right }
+Getting up and going with Wiperf can be quite tricky if you aren't familiar with Linux and setting up a separate server to act as a data collection server. Therefore, starting with v2.5, a quickstart script is provided that:
 
-Wiperf is a powerful solution, but it is not trivial to setup and configure. Here is a quickstart guide to outline the component parts and knowledge you'll need to get wiperf going.
+- Configures the wireless interface of the probe
+- Applies a basic probe configuration to get you started with testing
+- Installs InfluxDB and Grafana on to the WLAN Pi to provide an on-board reporting server
+- Configures Grafana with a set of dashboard reports to start reporting on network health
 
-__What it is:__ 
+The script takes less than 5 minutes to get a fully functioning Wiperf probe up and running.
 
-- an open source engineering tool that runs a set of network tests and reports in to a separate reporting tool (Splunk or Grafana) that is not part of the wiperf project. 
-- Wiperf is *only* a probe that runs a series of network tests and makes data available to other tools.
+## Running the Quickstart Script
+To run the quickstart script, power up your WLAN Pi and ensure it is connected to the Internet. If you have a switch port with Internet access, simply cable it to the Ethernet port of the WLAN Pi - DHCP will take care of the rest.
 
-__What it isn't:__ 
+Before running the quickstart script, ensure that the WLAN Pi is in "classic" mode.
 
-- An Enterprise quality/scale network monitoring tool
-- A reporting tool
-- A cheap way of providing Enterprise-wide UX monitoring
+Next, SSH to the WLAN Pi and run the following commands:
 
-__Skills You'll Need:__ 
-You will need to be comfortable with the following items to get wiperf going:
+```
+cd /opt/wlanpi-wiperf/extras
+sudo ./quick_start.sh
+```
 
-- Using SBC devices like the RPi and WLAN Pi (including burning images & getting on their CLI) 
-- Basic Linux administration skills (including editing files on the CLI, running scripts, updating/adding packages)
+A CLI wizard will now walk you through the steps to configure the WLAN Pi and installed the required reporting software:
 
-__Building a Probe:__
-You'll need to build the probe from scratch, which may include burning images on to an SD card, a variety of Linux operations such as adding new packages and performing administrative tasks such as setting the hostname, network configuration details and the timezone.
+![Quickstart Wizard](images/wizard.jpg)
 
-Once the basic probe is built, you will then download the wiperf code using an automated script and configure its operation using a CLI text editor.
+The wizard will walk you through the following processes:
 
-__Reporting:__
-As stated previously, wiperf __is not__ a reporting platform. It has been designed to send data to a reporting platform (that you build yourself, separately) such as Splunk or Grafana. 
+ - Configuration of the wireless network connection to test your wireless network (note the security methods supported are WPA2 PSK & PEAP)
+ - Installation of the Librespeed speedtest utility if you would like to use it in addition to the Ookla speedtest utility supported out of the box 
+ - Installation of the InfluxDB and Grafana plus reporting dashboards on to the WLAN Pi to provide local reporting.
 
-Details are provided to "get you going" with the reporting platform, but these platforms are not part of this project and detailed customization of these platforms and supporting them is outside of the wiperf project. No support will be provided for these platforms besides the basic report templates that are provided on a best-efforts basis. 
+The wizard also provides the option to switch the WLAN Pi in to Wiperf mode so that you can start testing and reporting on your wireless network straight away.
 
-Remember, wiperf is a UX network probe - analyzing the data it provides is your responsibility.
+Instructions for accessing the Grafana web UI to view the reports are provide on-screen at the end of the Grafana installation process.
 
-__Documentation:__
+## Further Documentation
 I have created a wide range of documentation to help you to get your wiperf probe going, together with the basics of setting up a suitable reporting platform. Please take time to read through this documentation before reaching out for support. 
 
 I recommend that you start [here](operation.md) and work sequentially though the [documentation provided](operation.md).
