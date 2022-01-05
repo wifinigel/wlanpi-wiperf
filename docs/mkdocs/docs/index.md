@@ -71,7 +71,7 @@ Here is an overview of the workflow::
 __Workflow Links:__
 
 - Start here for the data collection platform: [link](influx_platform.md)
-- Start here for the probe: [link](probe_platform.md)
+- Start here for the probe: [link](probe_preparation.md)
 
 In addition to the setup and deployment of the components, there may also be a requirement to troubleshoot the setup. The following pages provide useful support information:
 

@@ -58,7 +58,7 @@ connectivity_lookup: google.com
 Please see the details in this page: [link](probe_upgrade.md)
 
 ## How do I change the hostname of my probe?
-Please see the details in this help page: [link](probe_platform.md)
+Please see the details in this help page: [link](probe_preparation.md)
 
 ## Why are MCS & Rx Phy rates missing from my reports?
 In several dashboard reports, the reported MCS values & Rx Phy rate may be blank or permanently zero. This is because these values simply are not reported by many NICs. Sorry, there's not much I can do about this as I don't write the wireless NIC drivers.

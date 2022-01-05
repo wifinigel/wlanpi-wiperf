@@ -5,8 +5,7 @@ nav:
     - Quickstart: quickstart.md
     - Operation Overview: operation.md
     - Probe:
-        - probe_platform.md
-        - probe_install.md
+        - probe_preparation.md
         - probe_configure.md
         - probe_deploy.md
         - probe_upgrade.md
