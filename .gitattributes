@@ -45,6 +45,7 @@
 *.png   binary
 *.pdf   binary
 *.gif   binary
+*.vsdx  binary
 
 ###############################################################################
 # diff behavior for common document formats

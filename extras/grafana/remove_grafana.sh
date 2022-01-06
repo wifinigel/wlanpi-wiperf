@@ -7,7 +7,7 @@ if [ $EUID -ne 0 ]; then
    exit 1
 fi
 
-GRAFANA_PORT=4000
+GRAFANA_PORT=3000
 
 # Figure out which dir we're in
 SCRIPT_PATH=$(dirname $(readlink -f $0))

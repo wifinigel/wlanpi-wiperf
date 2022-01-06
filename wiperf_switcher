@@ -14,7 +14,7 @@ STATUS_FILE="/etc/wlanpi-state"
 CFG_DIR="/etc/wlanpi-wiperf"
 CFG_FILE="$CFG_DIR/config.ini"
 LOG_FILE="/var/log/wiperf_switcher.log"
-GRAFANA_PORT=4000
+GRAFANA_PORT=3000
 WLAN_INTERFACE=wlan0
 ETH_INTERFACE=eth0
 

@@ -5,18 +5,11 @@ nav:
     - Quickstart: quickstart.md
     - Operation Overview: operation.md
     - Probe:
-        - probe_platform.md
-        - probe_prepare.md
-        - probe_install.md
+        - probe_preparation.md
         - probe_configure.md
         - probe_deploy.md
         - probe_upgrade.md
     - Data Server:
-        - Splunk:
-            - splunk_platform.md
-            - splunk_software.md
-            - splunk_install.md
-            - splunk_configure.md
         - Influx/Grafana:
             - influx_platform.md
             - influx_install.md
@@ -24,15 +17,10 @@ nav:
             - grafana_platform.md
             - grafana_install.md
             - grafana_configure.md
-    - Blog Posts:
-            - blog_neo3.md
-            - whats_new_v2.1.md
-            - whats_new_v2.2.md
     - Troubleshooting: troubleshooting.md
     - Advanced Configuration:
         - adv_proxy.md
         - adv_remote_cfg.md
-        - adv_rpi_standalone.md
         - adv_secure.md
         - adv_fixed_bssid.md
     - FAQ: faq.md
@@ -53,6 +41,7 @@ nav:
             - db_health.md
     - Contact: https://github.com/wifinigel/wiperf/discussions
     - About: about.md
+    - Credits: credits.md
 theme:
     name: 'material'
     custom_dir: overrides

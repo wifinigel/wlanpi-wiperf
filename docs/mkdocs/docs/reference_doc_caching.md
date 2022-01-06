@@ -3,9 +3,6 @@ Authors: Nigel Bowden
 
 # Results Data Caching
 
-!!! Note
-    __New in V2.1__
-
 There were a number of requests from folks for results data to be made available on the local file system of the wiperf probe, in addition to being forwarded to a reporting platform. To meet these requests, results caching has been implemented.
 
 This feature is disabled by default, but when enabled all test results are stored on the local file system in either CSV or JSON format. To limit the amount of local file storage consumed, a maximum age limit is configured to age-out older date and prevent the local file system filling up. Note that test results are still sent to the configured reporting platform when caching is enabled.

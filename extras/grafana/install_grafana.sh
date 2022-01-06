@@ -28,7 +28,7 @@ SCRIPT_PATH=$(dirname $(readlink -f $0))
 cd $SCRIPT_PATH
 
 # Grafana admin user
-GRAFANA_PORT=4000
+GRAFANA_PORT=3000
 GRAFANA_USER=wlanpi
 GRAFANA_PWD=wlanpi
 
