@@ -1,11 +1,6 @@
 Title: Librespeed Speedtest
 Authors: Nigel Bowden
 
-# Librespeed Speedtest
-
-!!! Note
-    __New in V2.1__
-
 !!! Attention
     Make sure you checkout the ["Known Issues"](#known-issues) section at the end of this page
 
@@ -72,10 +67,10 @@ To download and install the Librespeed client on the Raspberry Pi, follow these 
 cd ~
 
 # get the librespeed-cli binary for RPi
-wget https://github.com/librespeed/speedtest-cli/releases/download/v1.0.7/librespeed-cli_1.0.7_linux_armv7.tar.gz
+wget https://github.com/librespeed/speedtest-cli/releases/download/v1.0.9/librespeed-cli_1.0.9_linux_armv7.tar.gz
 
 # extract the files
-tar xvzf librespeed-cli_1.0.7_linux_armv7.tar.gz
+tar xvzf librespeed-cli_1.0.9_linux_armv7.tar.gz
 
 # change the owner of the cli utility to root
 sudo chown root:root librespeed-cli
@@ -96,10 +91,10 @@ To download and install the Librespeed client on the WLAN Pi, follow these instr
 cd ~
 
 # get the librespeed-cli binary for RPi
-wget https://github.com/librespeed/speedtest-cli/releases/download/v1.0.7/librespeed-cli_1.0.7_linux_arm64.tar.gz
+wget https://github.com/librespeed/speedtest-cli/releases/download/v1.0.9/librespeed-cli_1.0.9_linux_arm64.tar.gz
 
 # extract the files
-tar xvzf librespeed-cli_1.0.7_linux_arm64.tar.gz
+tar xvzf librespeed-cli_1.0.9_linux_arm64.tar.gz
 
 # change the owner of the cli utility to root
 sudo chown root:root librespeed-cli
