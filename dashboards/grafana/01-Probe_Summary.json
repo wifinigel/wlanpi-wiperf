@@ -123,12 +123,6 @@
       },
       "lines": false,
       "linewidth": 1,
-      "links": [
-        {
-          "title": "Speedtest Dashboard",
-          "url": "dashboard/db/02-speedtest-report"
-        }
-      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -333,12 +327,6 @@
       },
       "lines": true,
       "linewidth": 1,
-      "links": [
-        {
-          "title": "Wireless Detail",
-          "url": "dashboard/db/07-wireless-detail"
-        }
-      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -974,16 +962,6 @@
       },
       "lines": true,
       "linewidth": 1,
-      "links": [
-        {
-          "title": "HTTP Dashboard",
-          "url": "dashboard/db/05-http-report"
-        },
-        {
-          "title": "",
-          "url": ""
-        }
-      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -1908,12 +1886,6 @@
       },
       "lines": true,
       "linewidth": 2,
-      "links": [
-        {
-          "title": "TCP iperf Dashboard",
-          "url": "dashboard/db/04-tcp-iperf-report"
-        }
-      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -2080,12 +2052,6 @@
       },
       "lines": true,
       "linewidth": 2,
-      "links": [
-        {
-          "title": "UDP iperf Dashboard",
-          "url": "dashboard/db/03-udp-iperf-report"
-        }
-      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -2225,12 +2191,6 @@
       },
       "lines": true,
       "linewidth": 2,
-      "links": [
-        {
-          "title": "UDP iperf Dashboard",
-          "url": "dashboard/db/03-udp-iperf-report"
-        }
-      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -2411,12 +2371,6 @@
           },
           "lines": true,
           "linewidth": 2,
-          "links": [
-            {
-              "title": "SMB Dashboard",
-              "url": "dashboard/db/06-smb-report"
-            }
-          ],
           "nullPointMode": "null",
           "options": {
             "alertThreshold": true,
@@ -2823,12 +2777,6 @@
           },
           "lines": true,
           "linewidth": 2,
-          "links": [
-            {
-              "title": "SMB Dashboard",
-              "url": "dashboard/db/06-smb-report"
-            }
-          ],
           "nullPointMode": "null",
           "options": {
             "alertThreshold": true,
