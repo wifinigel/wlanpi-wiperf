@@ -10,14 +10,14 @@ If you suspect network connectivity issues, your best course of action is to che
 Once interfaces have been verified, trying to access specific targets via network connectivity checks can also be useful. 
 
 1. The following CLI commands will help to check the status of probe interfaces:
-    1. Wireless NIC: ```iwconfig``` (Is the probe joining the wireless network? The SSID to which is is joined should be shown in the "ESSID" field)
-    2. IP address: ```ifconfig eth0```, ```ifconfig wlan0``` (Are the interfaces up? Do they have an IP address?)
-2. Network connectivity to a specific host: ```ping 192.168.0.254```
-3. Internet connectivity: ```ping google.com``` (Can the probe get to the Internet, if that is expected?)
-4. DNS connectivity: ```apt-get install dnsutils``` (install required commands), ```nslookup google.com```
-5. Web connectivity: ```wget https://google.com``` (check if the required website target can be reached from the probe)
-6. iperf3 server connectivity: ```iperf3 -c 192.168.0.1 -t 10 -i 1``` (run 10 sec tcp test to 192.168.0.1 server...alter for your iperf server address)
-7. Another useful source of information for connectivity issues in the syslog logging system of the probe. Take a look through the syslog file to see if there are any issues being reported that may be impacting your connectivity: ```tail -f /var/log/syslog```
+    1. Wireless NIC: `iwconfig` (Is the probe joining the wireless network? The SSID to which is is joined should be shown in the "ESSID" field)
+    2. IP address: `ifconfig eth0`, `ifconfig wlan0` (Are the interfaces up? Do they have an IP address?)
+2. Network connectivity to a specific host: `ping 192.168.0.254`
+3. Internet connectivity: `ping google.com` (Can the probe get to the Internet, if that is expected?)
+4. DNS connectivity: `apt-get install dnsutils` (install required commands), `nslookup google.com`
+5. Web connectivity: `wget https://google.com` (check if the required website target can be reached from the probe)
+6. iperf3 server connectivity: `iperf3 -c 192.168.0.1 -t 10 -i 1` (run 10 sec tcp test to 192.168.0.1 server...alter for your iperf server address)
+7. Another useful source of information for connectivity issues in the syslog logging system of the probe. Take a look through the syslog file to see if there are any issues being reported that may be impacting your connectivity: `tail -f /var/log/syslog`
 
 ## Wiperf Configuration
 The wiperf configuration file is quite a complex file, so it's well worth checking for typos or critical fields that have been missed. The key fields worth double checking are:
@@ -36,14 +36,14 @@ The wiperf configuration file is quite a complex file, so it's well worth checki
     - influx_password
     - influx_database
 
-One question to consider when deploying a probe is : Is the probe deployed in the topology you originally intended? If the environment is not as you expected and you need to use a different interface, make sure you have updated ```config.ini``` so that wiperf knows where to send test and management traffic (otherwise, you may hit routing issues)
+One question to consider when deploying a probe is : Is the probe deployed in the topology you originally intended? If the environment is not as you expected and you need to use a different interface, make sure you have updated `config.ini` so that wiperf knows where to send test and management traffic (otherwise, you may hit routing issues)
 
 ## Logging
 Wiperf has extensive logging to help diagnose issues that may be causing operational issues.
 
-SSH to the probe and monitor the output of the log file ```/var/log/wiperf_agent.log```. This file is created the first time that wiperf runs. If the file is not created after 5 minutes, then check the log file ```/var/log/wiperf_cron.log``` for error messages, as something fundamental is wrong with the installation.
+SSH to the probe and monitor the output of the log file `/var/log/wiperf_agent.log`. This file is created the first time that wiperf runs. If the file is not created after 5 minutes, then check the log file `/var/log/wiperf_runtime.log` for error messages, as something fundamental is wrong with the installation.
 
-To watch the output of ```/var/log/wiperf_agent.log``` in real-time and view activity as data is collected every 5 minutes, run the following command on the CLI of the probe:
+To watch the output of `/var/log/wiperf_agent.log` in real-time and view activity as data is collected every 5 minutes, run the following command on the CLI of the probe:
 
 ```
 tail -f /var/log/wiperf_agent.log
